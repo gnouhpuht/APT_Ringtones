@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/icons8_star_64"
+            android:title="@string/give_5_star_now"
+            />
+        <item
+            android:id="@+id/nav_folder_download"
+            android:icon="@drawable/icons8_downloads_folder_64"
+            android:title="@string/my_downloads" />
+        <item
+            android:id="@+id/nav_suggest_ringtones"
+            android:icon="@drawable/icons8_add_property_64"
+            android:title="@string/request_new_ringtone" />
+        <item
+            android:id="@+id/nav_reset_ringtone"
+            android:icon="@drawable/icons8_reset_64"
+            android:title="@string/reset_ringtone" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_mail_feedback"
+                android:icon="@drawable/icons8_gmail_64"
+                android:title="@string/studio_email" />
+        </menu>
+    </item>
+
+</menu>

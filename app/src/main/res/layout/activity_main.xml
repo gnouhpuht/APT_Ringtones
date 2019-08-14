@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <include
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/activity_main_drawer" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/splash_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/h" />
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/_150sdp"
+            android:id="@+id/cardview"
+            android:layout_width="wrap_content"
+            app:cardCornerRadius="@dimen/dp_24"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/bg_child_button_play_music"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:contentDescription="@string/nav_header_desc"
+                android:src="@drawable/ring"
+                tools:ignore="VectorDrawableCompat"/>
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/cardview"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_horizontal"
+            android:text="@string/nav_header_title"
+            android:textAllCaps="true"
+            android:fontFamily="@font/shrikhand"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FF5722"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progress_loadding"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:indeterminateDrawable="@drawable/my_progress"
+            />
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white_55"
+            android:text="@string/content_loadding"
+            android:textColor="@color/color_white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textSize="12dp"/>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

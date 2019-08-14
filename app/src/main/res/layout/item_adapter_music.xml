@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:id="@+id/ln_layout_parent_item"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <ImageButton
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/iv_icon_status"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_head_phone"
+        android:padding="4dp"
+        android:tint="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:padding="@dimen/dp_16"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-6dp"
+            android:layout_toLeftOf="@id/iv_btn_more_func"
+            android:layout_toRightOf="@id/iv_icon_status"
+            android:gravity="center_vertical"
+            android:text="Tên bài hát"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:singleLine="true"
+            android:textColor="@color/color_black_90" />
+        <ImageButton
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_btn_more_func"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert"
+            android:layout_alignParentRight="true"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            android:tint="@color/color_black_30"
+
+            />
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/sk_progress"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:progressDrawable="@drawable/progress_seek_bar"
+        android:thumb="@color/transparent"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        />
+</LinearLayout>

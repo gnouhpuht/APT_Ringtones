@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gyf.loadview:loadview:1.0.7@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5ff1b6839b752b335c563b2f8d414c8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c5ff1b6839b752b335c563b2f8d414c8/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.loadview/loadview/1.0.7/dc811b1e7b14012f0ad86df9f6a79a47a57ea450/loadview-1.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

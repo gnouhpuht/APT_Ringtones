@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gyf.loadview.LoadView
+    android:id="@+id/load_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Custom loading animation, can be customized for any control, also supports third-party animation library -->
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
+</com.gyf.loadview.LoadView>

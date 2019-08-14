@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "226592059298",
+    "firebase_url": "https://ringtone1-61c4a.firebaseio.com",
+    "project_id": "ringtone1-61c4a",
+    "storage_bucket": "ringtone1-61c4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226592059298:android:cb02c1b379e04bb2",
+        "android_client_info": {
+          "package_name": "freeringtones.newringtones.dowloadringtones.iphoneringtone2222"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226592059298-tffkef87gmb62jpjidicqr9grb5s3ll3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuuCoUd36m7rlmLU3IRQ1YZLrWNz-ht08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226592059298-tffkef87gmb62jpjidicqr9grb5s3ll3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
