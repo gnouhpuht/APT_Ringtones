@@ -25,17 +25,4 @@ public class RetrofitUtil {
         }
         return api;
     }
-
-    public static API getApiZip(){
-        Gson gson = new GsonBuilder().setLenient().create();
-        if (api == null) {
-
-            Retrofit.Builder builder = new Retrofit.Builder();
-            builder.baseUrl(Configs.BASE_URL_ZIP);
-            builder.addConverterFactory(GsonConverterFactory.create(gson));
-            Retrofit retrofit = builder.build();
-            api = retrofit.create(API.class);
-        }
-        return api;
-    }
 }

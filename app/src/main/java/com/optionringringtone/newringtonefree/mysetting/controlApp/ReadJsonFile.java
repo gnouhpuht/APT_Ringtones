@@ -52,15 +52,17 @@ public class ReadJsonFile {
 
         return jsonStr;
     }
-//    private String readFromFile() {
+//    public String readFromFile(String name) {
 //
 //        String ret = "";
 //        InputStream inputStream = null;
 //        try {
-//            inputStream = openFileInput("names.json");
+//            File yourFile = new File(Environment.getExternalStorageDirectory(), Configs.PATH_STORAGE_CATEGORY+"/"+name+"/ringtones.json");
+////            inputStream = openFileInput("names.json");
+//            inputStream=new FileInputStream(yourFile);
 //
 //            if ( inputStream != null ) {
-//                InputStreamReader  inputStreamReader = new InputStreamReader(inputStream);
+//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 //                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 //                String receiveString = "";
 //                StringBuilder stringBuilder = new StringBuilder();

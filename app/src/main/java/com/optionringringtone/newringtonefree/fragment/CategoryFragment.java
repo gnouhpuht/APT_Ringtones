@@ -1,7 +1,6 @@
 package com.optionringringtone.newringtonefree.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -13,11 +12,8 @@ import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.DownloadFileAsync2;
 import com.optionringringtone.newringtonefree.Untils.FragmentCommon;
 import com.optionringringtone.newringtonefree.adapter.AdapterCategory;
-import com.optionringringtone.newringtonefree.mysetting.controlApp.ReadJsonFile;
 import com.optionringringtone.newringtonefree.object.Category;
 import com.optionringringtone.newringtonefree.object.CategoryName;
-import com.optionringringtone.newringtonefree.object.detailcategory.Ringtone;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,10 +61,11 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("categories");
+            getCategoryName();
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject jo_inside = m_jArry.getJSONObject(i);
-                CategoryName category_name = getCategoryName().get(i);
-                Log.d("aaaaaaaaa", "getDataCategory: "+getCategoryName().get(i).getVi());
+                CategoryName category_name = categoryNames.get(i);
+//                Log.d("aaaaaaaaa", "getDataCategory: "+getCategoryName().get(i).getVi());
                 String url_value = jo_inside.getString("package_link");
                 String url_icon=jo_inside.getString("category_icon");
 
@@ -83,7 +80,7 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
             e.printStackTrace();
         }
 
-        Log.d("fffffffff", "getDataCategory: "+lstCategories.size());
+//        Log.d("fffffffff", "getDataCategory: "+lstCategories.size());
         return lstCategories;
     }
     private List<CategoryName> getCategoryName(){
@@ -178,8 +175,6 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         return R.layout.fragment_list_folder_category;
     }
 
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -202,15 +197,11 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         }
         downloadAndExtrack(url,position);
 
-        CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(getDataDetailCategory(position) + "")
+        CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
                 .setTitle(getCategoryName().get(position).getVi())
         );
     }
 
-   private List<Ringtone> getDataDetailCategory(int position){
-        ReadJsonFile readJsonFile=new ReadJsonFile();
-        return  readJsonFile.readFile(getCategoryName().get(position).getEn());
-   }
     @Override
     public Category getData(int position) {
         return lstCategories.get(position);

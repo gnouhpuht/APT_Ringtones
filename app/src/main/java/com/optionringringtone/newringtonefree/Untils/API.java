@@ -24,9 +24,6 @@ public interface API {
     @GET("popular")
     Call<ResponseDTO<ArrayList<RingTone>>> getPopularRingtones(@Query("lang") String lang);
 
-    @GET("categories")
-    Call<ResponseDTO<ArrayList<Category>>> getCategoriesRingtonesZip(@Query("lang") String lang);
-
 
     @GET("categories")
     Call<ResponseDTO<ArrayList<CategoryOBJ>>> getCategoriesRingtones(@Query("lang") String lang);

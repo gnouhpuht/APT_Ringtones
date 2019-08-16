@@ -6,20 +6,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.optionringringtone.newringtonefree.Untils.Configs;
 import com.optionringringtone.newringtonefree.Untils.FragmentCommon;
 import com.optionringringtone.newringtonefree.adapter.BaseAdapterListRingtone;
-import com.optionringringtone.newringtonefree.adapter.BaseAdapterLstRingtoneV2;
+import com.optionringringtone.newringtonefree.mysetting.controlApp.ReadJsonFile;
 import com.optionringringtone.newringtonefree.object.CategoryName;
 import com.optionringringtone.newringtonefree.object.detailcategory.Ringtone;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -69,49 +65,15 @@ public class ListRingtoneCategoryFragment extends FragmentCommon implements View
 
         iv_back = view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(this);
-        getDataRingtonePopular();
+        getDataRingtonePopular("Most Popular");
     }
 
-    private List<Ringtone> getDataRingtonePopular() {
-        try {
-
-            JSONObject jsonObj = new JSONObject(loadJsonInStorage());
-            JSONArray data  = jsonObj.getJSONArray("ringtones");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject c = data.getJSONObject(i);
-
-
-                String file_name = c.getString("file_name");
-
-                ringtone=new Ringtone();
-                ringtone.setFileName(file_name);
-
-                ringtoneList.add(ringtone);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ringtoneList;
+    private List<Ringtone> getDataRingtonePopular(String name) {
+        ReadJsonFile readJsonFile=new ReadJsonFile();
+        return readJsonFile.readFile(name);
     }
 
-    public String loadJsonInStorage(){
-        CategoryName categoryName=new CategoryName();
-        String jsonStr = null;
 
-        try {
-            File yourFile = new File(Environment.getExternalStorageDirectory(), Configs.PATH_STORAGE_CATEGORY+"/"+categoryName.getEn()+"ringtones.json");
-            FileInputStream stream = new FileInputStream(yourFile);
-            FileChannel fc = stream.getChannel();
-            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-
-            jsonStr = Charset.defaultCharset().decode(bb).toString();
-            stream.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        return jsonStr;
-    }
     @Override
     public void onPause() {
         super.onPause();
