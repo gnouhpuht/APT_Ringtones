@@ -1,5 +1,6 @@
 package com.optionringringtone.newringtonefree.fragment;
 
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -192,13 +193,14 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
     @Override
     public void onClick(int position) {
         String url=getCategoryName().get(position).getEn()+".zip";
-        if (CommonUntil.isExistFileZip(url)==true){
+        String name=getCategoryName().get(position).getEn();
+        if (CommonUntil.isExistFileZip(name)==true){
             return;
         }
         downloadAndExtrack(url,position);
 
         CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
-                .setTitle(getCategoryName().get(position).getVi())
+                .setTitle(categoryNames.get(position).getEn())
         );
     }
 

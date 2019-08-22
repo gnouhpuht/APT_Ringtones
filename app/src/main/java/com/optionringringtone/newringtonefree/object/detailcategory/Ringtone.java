@@ -1,12 +1,14 @@
 package com.optionringringtone.newringtonefree.object.detailcategory;
 
+import android.net.Uri;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Ringtone {
     @SerializedName("name")
     @Expose
-    private Name name;
+    private String name;
     @SerializedName("file_name")
     @Expose
     private String fileName;
@@ -27,12 +29,22 @@ public class Ringtone {
     private boolean isPlaying;
     private boolean isChangeStatus;
     private String path;
+    private Long duration;
 
-    public Name getName() {
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
     }
 

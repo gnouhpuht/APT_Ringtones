@@ -70,6 +70,7 @@
                 android:id="@+id/btnPlayPauseMusic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:background="@drawable/bg_button_play_music"
                 android:padding="@dimen/dp_5">
 
@@ -187,6 +188,7 @@
 
                     <LinearLayout
                         android:id="@+id/btnSetDefaultRingtone"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -217,6 +219,7 @@
 
                     <LinearLayout
                         android:id="@+id/btnSetDefaultNotification"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -258,6 +261,7 @@
 
                         <LinearLayout
                             android:id="@+id/btnSetDefaultAlarm"
+                            android:foreground="?android:attr/selectableItemBackground"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -288,6 +292,7 @@
 
                         <LinearLayout
                             android:id="@+id/btnSetRingtoneContact"
+                            android:foreground="?android:attr/selectableItemBackground"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -319,6 +324,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/btndownload"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_child_button_play_music"

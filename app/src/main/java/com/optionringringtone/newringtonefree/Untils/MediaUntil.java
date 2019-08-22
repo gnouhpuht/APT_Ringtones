@@ -23,6 +23,7 @@ public class MediaUntil {
     private static MediaPlayer mediaPlayer;
     private static MediaUntil mInstance;
     private static String currentId;
+    private static String fileName;
     public static MediaUntil getInstance(){
         if (mediaPlayer == null)
             mediaPlayer = new MediaPlayer();
@@ -56,7 +57,7 @@ public class MediaUntil {
                 mediaPlayer.setOnErrorListener((mp, what, extra) -> {
 //                    Log.d(TAG, "onError Media: what:" + what + "\n extrar:"+ extra);
                     if(what == MEDIA_ERROR_UNKNOWN ||
-                        what == MEDIA_ERROR_SERVER_DIED ||
+                            what == MEDIA_ERROR_SERVER_DIED ||
                             extra == MEDIA_ERROR_IO ||
                             extra == MEDIA_ERROR_MALFORMED ||
                             extra == MEDIA_ERROR_TIMED_OUT ||
@@ -77,12 +78,61 @@ public class MediaUntil {
         }
         return mediaPlayer;
     }
+
+    public MediaPlayer playMusicCategory(Activity activity, @NonNull String path, @NonNull String name,  @NonNull onChangeListener onChangeListener){
+        try {
+            if(!CommonUntil.isNullorEmty(fileName) ){
+                mediaPlayer.start();
+                onChangeListener.onReady();
+            }else {
+//                currentId = id;
+                fileName=name;
+                final ProgressDialog progressDialog = CommonUntil.creProgress(activity, activity.getString(R.string.wait_process));
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(path);
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//            mediaPlayer.prepare();
+                mediaPlayer.prepareAsync();
+                mediaPlayer.setOnPreparedListener(mp -> {
+                    progressDialog.dismiss();
+                    mediaPlayer.start();
+                    onChangeListener.onReady();
+                });
+                mediaPlayer.setOnErrorListener((mp, what, extra) -> {
+//                    Log.d(TAG, "onError Media: what:" + what + "\n extrar:"+ extra);
+                    if(what == MEDIA_ERROR_UNKNOWN ||
+                            what == MEDIA_ERROR_SERVER_DIED ||
+                            extra == MEDIA_ERROR_IO ||
+                            extra == MEDIA_ERROR_MALFORMED ||
+                            extra == MEDIA_ERROR_TIMED_OUT ||
+                            extra == MEDIA_ERROR_UNSUPPORTED
+                    ) {
+                        progressDialog.dismiss();
+                        Dialog dialog = CommonUntil.createDialog(activity, activity.getString(R.string.errorProcess), null);
+                        dialog.show();
+                        onChangeListener.onError();
+                        fileName = null;
+                        return true;
+                    }
+                    return false;
+                });
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mediaPlayer;
+    }
     public void pause(){
         mediaPlayer.pause();
     }
 
     public void stop(){
         currentId = null;
+        fileName=null;
         mediaPlayer.stop();
     }
 

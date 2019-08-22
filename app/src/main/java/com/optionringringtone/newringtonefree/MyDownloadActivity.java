@@ -27,7 +27,7 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
     private SharePreferenceUntil sharePreferenceUntil;
     private String TAG = "MyDownloadActivity";
     private List<RingTone> ringTones = new ArrayList<>();
-    BaseAdapterLstRingtoneV2 adapterLstRingtone;
+    private BaseAdapterLstRingtoneV2 adapterLstRingtone;
     private List<RingTone> lstRing;
     private MediaUntil mMediaInstance;
     private int sizeListDownLoad = 0;

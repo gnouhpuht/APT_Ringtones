@@ -243,7 +243,7 @@ public class CommonUntil {
     }
 
     public static boolean isExistFileZip(String nameFile){
-        String filePath=Configs.FOLDERZIP+nameFile;
+        String filePath=Configs.PATH_STORAGE_CATEGORY+nameFile;
         File file=new File(filePath);
         if (file.exists()){
             return true;
