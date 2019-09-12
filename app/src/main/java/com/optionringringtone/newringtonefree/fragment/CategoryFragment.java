@@ -1,12 +1,17 @@
 package com.optionringringtone.newringtonefree.fragment;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.gyf.loadview.LoadView;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
@@ -25,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
-public class CategoryFragment extends FragmentCommon  implements AdapterCategory.ICategory {
+public class CategoryFragment extends FragmentCommon implements AdapterCategory.ICategory {
     private static final String TAG = "CategoriesFragment";
     private ProgressBar prLoading;
     private RecyclerView rcFolderCategory;
@@ -34,9 +39,8 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
     private ArrayList<CategoryName> categoryNames;
     private Category category;
     private CategoryName categoryName;
-    private static String baseUrl="https://ring.sgp1.digitaloceanspaces.com/newCategoryTest/";
+    private static String baseUrl = "https://ring.sgp1.digitaloceanspaces.com/newCategoryTest/";
     private LoadView loadView;
-
 
 
     @Override
@@ -49,16 +53,16 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         rcFolderCategory = view.findViewById(R.id.rc_folder_category);
         prLoading = view.findViewById(R.id.prLoading);
         lstCategories = new ArrayList<>();
-        categoryNames=new ArrayList<>();
+        categoryNames = new ArrayList<>();
         CommonUntil.setLayoutManager(activity, rcFolderCategory, LinearLayout.VERTICAL);
         adapterLstRingtone = new AdapterCategory(activity, this);
         rcFolderCategory.setAdapter(adapterLstRingtone);
 
-        loadView=view.findViewById(R.id.load_view);
+        loadView = view.findViewById(R.id.load_view);
         getDataCategory();
     }
 
-    private List<Category> getDataCategory(){
+    private List<Category> getDataCategory() {
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("categories");
@@ -68,9 +72,9 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
                 CategoryName category_name = categoryNames.get(i);
 //                Log.d("aaaaaaaaa", "getDataCategory: "+getCategoryName().get(i).getVi());
                 String url_value = jo_inside.getString("package_link");
-                String url_icon=jo_inside.getString("category_icon");
+                String url_icon = jo_inside.getString("category_icon");
 
-                category=new Category();
+                category = new Category();
                 category.setCategoryName(category_name);
                 category.setPackageLink(url_value);
                 category.setCategoryIcon(url_icon);
@@ -80,74 +84,73 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        Log.d("fffffffff", "getDataCategory: "+lstCategories.size());
         return lstCategories;
     }
-    private List<CategoryName> getCategoryName(){
+
+    private List<CategoryName> getCategoryName() {
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("categories");
             for (int i = 0; i < m_jArry.length(); i++) {
                 JSONObject ob_category = m_jArry.getJSONObject(i);
-                JSONObject ob_category_name=ob_category.getJSONObject("category_name");
-                    String en = ob_category_name.getString("en");
-                    String ar = ob_category_name.getString("ar");
-                    String cs = ob_category_name.getString("cs");
-                    String da = ob_category_name.getString("da");
-                    String de = ob_category_name.getString("de");
-                    String es = ob_category_name.getString("es");
-                    String fr = ob_category_name.getString("fr");
-                    String hr = ob_category_name.getString("hr");
-                    String hu = ob_category_name.getString("hu");
-                    String id = ob_category_name.getString("id");
-                    String it = ob_category_name.getString("it");
-                    String ja = ob_category_name.getString("ja");
-                    String ko = ob_category_name.getString("ko");
-                    String ms = ob_category_name.getString("ms");
-                    String nb = ob_category_name.getString("nb");
-                    String nl = ob_category_name.getString("nl");
-                    String pl = ob_category_name.getString("pl");
-                    String pt = ob_category_name.getString("pt");
-                    String ro = ob_category_name.getString("ro");
-                    String ru = ob_category_name.getString("ru");
-                    String sr = ob_category_name.getString("sr");
-                    String sv = ob_category_name.getString("sv");
-                    String th = ob_category_name.getString("th");
-                    String tr = ob_category_name.getString("tr");
-                    String vi = ob_category_name.getString("vi");
-                    String zh = ob_category_name.getString("zh");
+                JSONObject ob_category_name = ob_category.getJSONObject("category_name");
+                String en = ob_category_name.getString("en");
+                String ar = ob_category_name.getString("ar");
+                String cs = ob_category_name.getString("cs");
+                String da = ob_category_name.getString("da");
+                String de = ob_category_name.getString("de");
+                String es = ob_category_name.getString("es");
+                String fr = ob_category_name.getString("fr");
+                String hr = ob_category_name.getString("hr");
+                String hu = ob_category_name.getString("hu");
+                String id = ob_category_name.getString("id");
+                String it = ob_category_name.getString("it");
+                String ja = ob_category_name.getString("ja");
+                String ko = ob_category_name.getString("ko");
+                String ms = ob_category_name.getString("ms");
+                String nb = ob_category_name.getString("nb");
+                String nl = ob_category_name.getString("nl");
+                String pl = ob_category_name.getString("pl");
+                String pt = ob_category_name.getString("pt");
+                String ro = ob_category_name.getString("ro");
+                String ru = ob_category_name.getString("ru");
+                String sr = ob_category_name.getString("sr");
+                String sv = ob_category_name.getString("sv");
+                String th = ob_category_name.getString("th");
+                String tr = ob_category_name.getString("tr");
+                String vi = ob_category_name.getString("vi");
+                String zh = ob_category_name.getString("zh");
 
 
-                    categoryName=new CategoryName();
-                    categoryName.setEn(en);
-                    categoryName.setAr(ar);
-                    categoryName.setCs(cs);
-                    categoryName.setDa(da);
-                    categoryName.setDe(de);
-                    categoryName.setEs(es);
-                    categoryName.setFr(fr);
-                    categoryName.setHr(hr);
-                    categoryName.setHu(hu);
-                    categoryName.setId(id);
-                    categoryName.setIt(it);
-                    categoryName.setJa(ja);
-                    categoryName.setKo(ko);
-                    categoryName.setMs(ms);
-                    categoryName.setNl(nl);
-                    categoryName.setNb(nb);
-                    categoryName.setRo(ro);
-                    categoryName.setPl(pl);
-                    categoryName.setPt(pt);
-                    categoryName.setRu(ru);
-                    categoryName.setSr(sr);
-                    categoryName.setSv(sv);
-                    categoryName.setTh(th);
-                    categoryName.setTr(tr);
-                    categoryName.setVi(vi);
-                    categoryName.setZh(zh);
+                categoryName = new CategoryName();
+                categoryName.setEn(en);
+                categoryName.setAr(ar);
+                categoryName.setCs(cs);
+                categoryName.setDa(da);
+                categoryName.setDe(de);
+                categoryName.setEs(es);
+                categoryName.setFr(fr);
+                categoryName.setHr(hr);
+                categoryName.setHu(hu);
+                categoryName.setId(id);
+                categoryName.setIt(it);
+                categoryName.setJa(ja);
+                categoryName.setKo(ko);
+                categoryName.setMs(ms);
+                categoryName.setNl(nl);
+                categoryName.setNb(nb);
+                categoryName.setRo(ro);
+                categoryName.setPl(pl);
+                categoryName.setPt(pt);
+                categoryName.setRu(ru);
+                categoryName.setSr(sr);
+                categoryName.setSv(sv);
+                categoryName.setTh(th);
+                categoryName.setTr(tr);
+                categoryName.setVi(vi);
+                categoryName.setZh(zh);
 
-                    categoryNames.add(categoryName);
+                categoryNames.add(categoryName);
 
             }
         } catch (JSONException e) {
@@ -155,6 +158,7 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         }
         return categoryNames;
     }
+
     public String loadJSONFromAsset() {
         String json = null;
         try {
@@ -184,7 +188,7 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
 
     @Override
     public int getItemCount() {
-        if (lstCategories==null){
+        if (lstCategories == null) {
             return 0;
         }
         return lstCategories.size();
@@ -192,16 +196,35 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
 
     @Override
     public void onClick(int position) {
-        String url=getCategoryName().get(position).getEn()+".zip";
-        String name=getCategoryName().get(position).getEn();
-        if (CommonUntil.isExistFileZip(name)==true){
-            return;
-        }
-        downloadAndExtrack(url,position);
+        String url = getCategoryName().get(position).getEn() + ".zip";
+        String name = getCategoryName().get(position).getEn();
+        if (CommonUntil.isExistFileZip(name) == true) {
+            CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
+                    .setTitle(categoryNames.get(position).getEn())
+            );
 
-        CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
-                .setTitle(categoryNames.get(position).getEn())
-        );
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("");
+            builder.setMessage("Are you sure you want to download? ");
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    downloadAndExtrack(url, position);
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+
     }
 
     @Override
@@ -209,15 +232,26 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
         return lstCategories.get(position);
     }
 
-    private void downloadAndExtrack(String name,int position){
+    private ProgressDialog creProgress(@NonNull Activity activity, @NonNull String mess) {
+        ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage(mess);
+        progressDialog.setCancelable(false);
+        return progressDialog;
+    }
 
-
+    private void downloadAndExtrack(String name, int position) {
+        ProgressDialog progressDialog = creProgress(activity, activity.getString(R.string.downloading_pls_wait));
+        progressDialog.setIndeterminate(false);
+        progressDialog.setMax(100);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(true);
         File file = new File(name);
         if (!file.exists()) {
             DownloadFileAsync2 mDownloadFileAsync = new DownloadFileAsync2(name, lstCategories.get(position).getCategoryName().getEn(),
                     new DownloadFileAsync2.downloadInterface() {
                         @Override
                         public void onProgressUpdate(int progress) {
+                            progressDialog.setProgress(progress);
                         }
 
                         @Override
@@ -228,20 +262,25 @@ public class CategoryFragment extends FragmentCommon  implements AdapterCategory
 
                         @Override
                         public void onComplete(String path) {
-                            Toast.makeText(activity,activity.getResources().getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
-                    if (adapterLstRingtone != null)
-                        adapterLstRingtone.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                            Toast.makeText(activity, activity.getResources().getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
+                            if (adapterLstRingtone != null)
+                                adapterLstRingtone.notifyDataSetChanged();
+//                            CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
+//                                    .setTitle(categoryNames.get(position).getEn())
+//                            );
                         }
 
                         @Override
                         public void onStart() {
                             if (activity != null)
-                                Toast.makeText(activity, activity.getString(R.string.download_start), Toast.LENGTH_SHORT).show();
+                                progressDialog.show();
+                            Toast.makeText(activity, activity.getString(R.string.download_start), Toast.LENGTH_SHORT).show();
                         }
                     });
             mDownloadFileAsync.execute(lstCategories.get(position).getPackageLink());
         } else {
-            if (activity!= null)
+            if (activity != null)
                 Toast.makeText(activity, activity.getResources().getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
         }
     }

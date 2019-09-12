@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.object.Category;
-import com.optionringringtone.newringtonefree.object.detailcategory.Ringtone;
 import java.util.Locale;
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
@@ -47,15 +46,19 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
                 .error(R.drawable.folder)
                 .placeholder(R.drawable.folder)
                 .into(holder.imageView);
-
-
+        String name = categoryOBJ.getCategoryName().getEn();
+        if (CommonUntil.isExistFileZip(name) == true) {
+            holder.tvDownload.setVisibility(View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 inter.onClick(holder.getAdapterPosition());
 
             }
         });
+
 
     }
 
@@ -67,11 +70,13 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtKeySearch;
         private ImageView imageView;
+        private TextView tvDownload;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtKeySearch = itemView.findViewById(R.id.tv_name_folder);
             imageView=itemView.findViewById(R.id.iv_folder);
+            tvDownload=itemView.findViewById(R.id.download);
         }
     }
 

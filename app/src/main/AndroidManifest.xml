@@ -73,7 +73,9 @@
         <activity
             android:name="com.optionringringtone.newringtonefree.DetailActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name="com.optionringringtone.newringtonefree.Untils.DetailActivityCategory"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_id_ads" />

@@ -1,6 +1,324 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context="com.optionringringtone.newringtonefree.DetailActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/colorPrimary" />
+
+                <!--<ImageButton-->
+                <!--android:id="@+id/btnDownLoadAndDeleteMusic"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:src="@drawable/ic_cloud_download"-->
+                <!--android:paddingLeft="@dimen/dp_24"-->
+                <!--android:paddingRight="@dimen/dp_24"-->
+                <!--android:tint="@color/colorPrimary"-->
+                <!--android:background="?selectableItemBackgroundBorderless"-->
+                <!--android:layout_height="?actionBarSize"-->
+                <!--android:layout_alignParentRight="true" />-->
+                <TextView
+                    android:id="@+id/txtNameMusic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/_4sdp"
+                    android:layout_toEndOf="@+id/btnBack"
+                    android:layout_toRightOf="@+id/btnBack"
+                    android:padding="@dimen/dp_10"
+                    android:singleLine="true"
+                    android:text="@string/ringtone"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_black_90"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:id="@+id/ln_play"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_below="@id/cv_title"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:id="@+id/btnPlayPauseMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/bg_button_play_music"
+                android:padding="@dimen/dp_5">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_child_button_play_music">
+
+                    <ImageView
+                        android:id="@+id/imgPlayPauseMusic"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:layout_margin="@dimen/dp_16"
+                        android:src="@drawable/icons8_play_64"
+                        android:tint="@color/color_white" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <!--<RelativeLayout-->
+        <!--android:layout_below="@+id/ln_play"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true">-->
+        <!--<ImageView-->
+        <!--android:id="@+id/btnBack"-->
+        <!--android:layout_width="@dimen/dp_32"-->
+        <!--android:layout_height="@dimen/dp_32"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:src="@drawable/ic_back"-->
+        <!--android:tint="@color/colorPrimary" />-->
+        <!--<LinearLayout-->
+        <!--android:id="@+id/btnDownLoadAndDeleteMusic"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical">-->
+        <!--<ImageView-->
+        <!--android:id="@+id/imgDownloadAndDeleteMusic"-->
+        <!--android:layout_width="@dimen/dp_24"-->
+        <!--android:layout_height="@dimen/dp_24"-->
+        <!--android:src="@drawable/icons8_downloads_folder_64" />-->
+        <!--<TextView-->
+        <!--android:id="@+id/txtActionDownLoadOrDelete"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/dp_5"-->
+        <!--android:text="@string/download"-->
+        <!--android:textColor="@color/color_black_90" />-->
+        <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/tv_time"
+            android:layout_below="@id/ln_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8">
+
+            <TextView
+                android:id="@+id/txtTimeDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="0:01"
+                android:textColor="@color/color_black_90" />
+
+            <TextView
+                android:id="@+id/txtTotalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="0:13"
+                android:textColor="@color/color_black_90" />
+        </RelativeLayout>
+
+        <!--SeekBar-->
+        <SeekBar
+            android:layout_below="@id/tv_time"
+            android:id="@+id/skMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5" />
+
+        <!--Action footer-->
+        <LinearLayout
+            android:layout_below="@id/skMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:orientation="vertical">
+            <!--Layout ringtone & notification-->
+            <LinearLayout
+                android:id="@+id/ll_into"
+                android:layout_width="match_parent"
+                android:layout_height="92dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btnSetDefaultRingtone"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_child_button_play_music"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_16">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_phone_black_24dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:text="@string/set_default_ringtone"
+                        android:textColor="@color/color_black_90"
+                        android:textSize="@dimen/dp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_64"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btnSetDefaultNotification"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_child_button_play_music"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_16">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_notifications_black_24dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:text="Set Default Notification"
+                        android:textColor="@color/color_black_90"
+                        android:textSize="@dimen/dp_12" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Layout alarm & ringtone contact-->
+
+            <!--Layout ringtone & notification-->
+            <LinearLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btnSetDefaultAlarm"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_child_button_play_music"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_16">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_access_alarm_black_24dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:text="@string/set_default_alarm"
+                        android:textColor="@color/color_black_90"
+                        android:textSize="@dimen/dp_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_64"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/btnSetRingtoneContact"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_child_button_play_music"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_16">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:src="@drawable/ic_contact_phone_black_24dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:text="@string/set_ringtone_contact"
+                        android:textColor="@color/color_black_90"
+                        android:textSize="@dimen/dp_12" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

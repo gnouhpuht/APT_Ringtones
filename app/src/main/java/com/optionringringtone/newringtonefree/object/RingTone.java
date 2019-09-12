@@ -24,6 +24,7 @@ public class RingTone implements Serializable {
     private boolean isPlaying;
     private boolean isChangeStatus;
     private String path;
+    private long timeDownload;
     public RingTone() {
     }
 
@@ -52,6 +53,11 @@ public class RingTone implements Serializable {
         this.isPlaying = isPlaying;
     }
 
+    public RingTone(String url,String name, String duration){
+        this.url=url;
+        this.name=name;
+        this.duration=duration;
+    }
     public boolean isDownLoad() {
         return isDownLoad;
     }
@@ -146,5 +152,13 @@ public class RingTone implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public long getTimeDownload() {
+        return timeDownload;
+    }
+
+    public void setTimeDownload(long timeDownload) {
+        this.timeDownload = timeDownload;
     }
 }

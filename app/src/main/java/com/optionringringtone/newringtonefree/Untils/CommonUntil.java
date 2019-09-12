@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.EditText;
@@ -90,7 +91,7 @@ public class CommonUntil {
         return alert.create();
     }
 
-    ;
+
 
     public static ProgressDialog creProgress(@NonNull Activity activity, @NonNull String mess) {
         ProgressDialog progressDialog = new ProgressDialog(activity);
@@ -242,8 +243,21 @@ public class CommonUntil {
         return false;
     }
 
+
+
+    public static boolean isExistFileCategory(String nameRingtone) {
+        String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+"Most Popular/Most_Popular/"+nameRingtone+"";
+//        String filePath = Configs.FOLDER + nameRingtone ;
+        File file = new File(filePath);
+        if (file.exists())
+            return true;
+        return false;
+    }
+
+
+
     public static boolean isExistFileZip(String nameFile){
-        String filePath=Configs.PATH_STORAGE_CATEGORY+nameFile;
+        String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+nameFile+"";
         File file=new File(filePath);
         if (file.exists()){
             return true;

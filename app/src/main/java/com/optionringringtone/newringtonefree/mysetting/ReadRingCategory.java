@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReadRingCategory {
-    final String MEDIA_PATH = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY+"/";
+    final String MEDIA_PATH = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
     private String mp3Pattern = ".mp3";
 

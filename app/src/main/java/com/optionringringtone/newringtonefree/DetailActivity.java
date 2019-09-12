@@ -177,6 +177,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
         if (CommonUntil.isNullorEmty(ringTone.getUrl())) {
+            initView();
             showDiaLogTrouble();
             return;
         }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.optionringringtone.newringtonefree.DetailActivity;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
+import com.optionringringtone.newringtonefree.Untils.DetailActivityCategory;
 import com.optionringringtone.newringtonefree.Untils.MediaUntil;
 import com.optionringringtone.newringtonefree.Untils.SlideAnimationUtil;
-import com.optionringringtone.newringtonefree.fragment.DialogFragmentMoreFucntion;
+import com.optionringringtone.newringtonefree.fragment.DialogFragmentMoreCategory;
 import com.optionringringtone.newringtonefree.object.RingTone;
 import java.util.List;
-
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class BaseAdapterListRingtone extends BaseAdapter {
@@ -106,8 +104,9 @@ public class BaseAdapterListRingtone extends BaseAdapter {
 
     public void stopAudio() {
         if (mediaPlayer != null) {
+
             mMediaInstance.stop();
-            if(skPlaying != null)
+            if (skPlaying != null)
                 skPlaying.setProgress(0);
             idPlaying = -1;
         }
@@ -189,14 +188,14 @@ public class BaseAdapterListRingtone extends BaseAdapter {
             notifyDataSetChanged();
         });
         ln_layout_parent_item.setOnClickListener(v ->{
-            Intent intent = new Intent(activity, DetailActivity.class);
+            Intent intent = new Intent(activity, DetailActivityCategory.class);
             intent.putExtra("rintoneData", ringToneData);
             activity.startActivity(intent);
             SlideAnimationUtil.overridePendingTransitionEnter(activity);
         });
 
         iv_btn_more_func.setOnClickListener(view -> {
-            DialogFragmentMoreFucntion dialogFragmentMoreFucntion = new DialogFragmentMoreFucntion();
+            DialogFragmentMoreCategory dialogFragmentMoreFucntion = new DialogFragmentMoreCategory();
             dialogFragmentMoreFucntion.setRingTone(ringToneData);
             dialogFragmentMoreFucntion.show(((AppCompatActivity)activity).getSupportFragmentManager(),"");
         });
