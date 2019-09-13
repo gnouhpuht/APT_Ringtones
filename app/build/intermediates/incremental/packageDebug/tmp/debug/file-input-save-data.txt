@@ -1,0 +1,15 @@
+#Internal package file, do not edit.
+#Sat Aug 10 11:55:11 ICT 2019
+1.base=D\:\\APT_Ringtones_01\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+2.path=categories.json
+0.baseType=DIRECTORY
+2.base=D\:\\APT_Ringtones_01\\app\\build\\intermediates\\merged_assets\\debug\\out
+2.set=ASSET
+1.baseType=DIRECTORY
+count=3
+1.set=DEX
+0.path=audience_network.dex
+0.set=ASSET
+0.base=D\:\\APT_Ringtones_01\\app\\build\\intermediates\\merged_assets\\debug\\out
+2.baseType=DIRECTORY
+1.path=classes.dex

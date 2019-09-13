@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">226592059298-tffkef87gmb62jpjidicqr9grb5s3ll3.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://ringtone1-61c4a.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">226592059298</string>
+    <string name="google_api_key" translatable="false">AIzaSyCuuCoUd36m7rlmLU3IRQ1YZLrWNz-ht08</string>
+    <string name="google_app_id" translatable="false">1:226592059298:android:cb02c1b379e04bb2</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCuuCoUd36m7rlmLU3IRQ1YZLrWNz-ht08</string>
+    <string name="google_storage_bucket" translatable="false">ringtone1-61c4a.appspot.com</string>
+    <string name="project_id" translatable="false">ringtone1-61c4a</string>
+</resources>
