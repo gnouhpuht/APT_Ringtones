@@ -239,64 +239,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
 
     private void downloadFile() {
         if (CommonUntil.isExistFileCategory(ringTone.getName())) {
-//            String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+"Most Popular/Most_Popular/"+ringTone.getName()+"";
-//            File file = new File(filePath);
-//            if (type == TYPE_RINGTONE_CONTACT) {
-//                if (setupUriForContact(cNumber, file)) {
-//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
-//                    Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
-//                        @Override
-//                        public void Displayed() {
-//
-//                        }
-//
-//                        @Override
-//                        public void Close() {
-//                            Settting1.onCallLoadAdsIn(getContext());
-//                        }
-//                    });
-//                } else {
-//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_failed), getString(R.string.app_name)).show();
-//                }
-//            } else {
-//                if (CommonUntil.checkCanBeChangeSystemSetting(getActivity(), READ_WRITE_REQUEST))
-//                    setRingtone(file);
-//            }
-//        } else {
-//            CommonUntil.downLoadFile(getActivity(), ringTone, uri -> {
-//                if (uri == null) {
-//                    CommonUntil.createDialog(getActivity(), getString(R.string.has_problem), getString(R.string.app_name)).show();
-//                    return;
-//                }
-//
-//                saveListRingtoneToShared();
-//                // Set ringtone
-//                if (type == TYPE_RINGTONE_CONTACT) {
-//                    File file = new File(uri.getPath());
-//                    if (setupUriForContact(cNumber, file)) {
-//                        CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
-//                        Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
-//                            @Override
-//                            public void Displayed() {
-//
-//                            }
-//
-//                            @Override
-//                            public void Close() {
-//                                Settting1.onCallLoadAdsIn(getContext());
-//                            }
-//                        });
-//                    } else {
-//                        CommonUntil.createDialog(getActivity(), getString(R.string.change_failed), getString(R.string.app_name)).show();
-//                    }
-//                } else {
-//                    if (CommonUntil.checkCanBeChangeSystemSetting(getActivity(), READ_WRITE_REQUEST)) {
-//                        File file = new File(uri.getPath());
-//                        setRingtone(file);
-//                    }
-//                }
-//            });
-            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
+//            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
+            String filePath=CommonUntil.getPathCategory("Funny")+"/"+ ringTone.getName() + "";
             File file = new File(filePath);
             if (type == TYPE_RINGTONE_CONTACT) {
                 if (setupUriForContact(cNumber, file)) {

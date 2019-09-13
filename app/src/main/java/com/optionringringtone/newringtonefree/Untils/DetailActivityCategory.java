@@ -38,6 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.optionringringtone.newringtonefree.mysetting.Settting1;
+import com.optionringringtone.newringtonefree.object.CategoryName;
 import com.optionringringtone.newringtonefree.object.RingTone;
 
 import java.io.File;
@@ -517,9 +518,11 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
     }
 
 
+
     private void downloadFile() {
         if (CommonUntil.isExistFileCategory(ringTone.getName())) {
-            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
+//            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
+            String filePath=CommonUntil.getPathCategory(CategoryName.class.getName())+"/"+ ringTone.getName() + "";
             File file = new File(filePath);
             if (type == TYPE_RINGTONE_CONTACT) {
                 if (setupUriForContact(cNumber, file)) {

@@ -326,4 +326,24 @@ public class CommonUntil {
         alertDialog.show();
     }
 
+    public static String getPathCategory(String name){
+        String path="";
+        if (name.equals("Most Popular")||name.equals("Electronic Music")||name.equals("Classical Music")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name +"/"+
+                    name.replace(" ","_");
+        }else if (name.equals("National Anthems A-J")||name.equals("National Anthems K-Z")||name.equals("Animal Sounds")||name.equals("Christmas")||name.equals("Islamic Ringtones")||name.equals("Halloween")||name.equals("Japanese")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name ;
+        }else if (name.equals("Alarms")||name.equals("Nature")||name.equals("Business")||name.equals("Funny")||name.equals("Vintage")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name+"/"+name ;
+        }else if (name.equals("The Best of 2019")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name+"/The_Best_of_2018";
+        }else if (name.equals("Rock Music")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name+"/Rock";
+        }else if (name.equals("Hip Hop Music")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name+"/Hip_Hop";
+        }else if (name.equals("Notifications")){
+            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name+"/Notification";
+        }
+        return path;
+    }
 }
