@@ -245,16 +245,15 @@ public class CommonUntil {
 
 
 
-    public static boolean isExistFileCategory(String nameRingtone) {
-        String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+"Most Popular/Most_Popular/"+nameRingtone+"";
+    public static boolean isExistFileCategory(String nameRingtone,String name) {
+//        String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+"Most Popular/Most_Popular/"+nameRingtone+"";
 //        String filePath = Configs.FOLDER + nameRingtone ;
+        String filePath=getPathCategory(name)+"/"+nameRingtone;
         File file = new File(filePath);
         if (file.exists())
             return true;
         return false;
     }
-
-
 
     public static boolean isExistFileZip(String nameFile){
         String filePath= Environment.getExternalStorageDirectory().getPath() +Configs.PATH_STORAGE_CATEGORY+nameFile+"";
@@ -264,7 +263,6 @@ public class CommonUntil {
         }
         return false;
     }
-
 
     public static void deleteFile(String nameRingtone, String idRingtone) {
         String filePath = Configs.FOLDER + nameRingtone + "_ID_" + idRingtone + ".mp3";
@@ -329,7 +327,7 @@ public class CommonUntil {
     public static String getPathCategory(String name){
         String path="";
         if (name.equals("Most Popular")||name.equals("Electronic Music")||name.equals("Classical Music")){
-            path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name +"/"+
+            path = Environment.getExternalStorageDirectory().getPath()+ Configs.PATH_STORAGE_CATEGORY+name +"/"+
                     name.replace(" ","_");
         }else if (name.equals("National Anthems A-J")||name.equals("National Anthems K-Z")||name.equals("Animal Sounds")||name.equals("Christmas")||name.equals("Islamic Ringtones")||name.equals("Halloween")||name.equals("Japanese")){
             path = Environment.getExternalStorageDirectory().toString()+ Configs.PATH_STORAGE_CATEGORY+name ;
@@ -346,4 +344,6 @@ public class CommonUntil {
         }
         return path;
     }
+
+
 }

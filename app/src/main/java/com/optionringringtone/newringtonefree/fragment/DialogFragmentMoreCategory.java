@@ -34,6 +34,7 @@ import com.optionringringtone.newringtonefree.Untils.Configs;
 import com.optionringringtone.newringtonefree.Untils.DetailActivityCategory;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
 import com.optionringringtone.newringtonefree.mysetting.Settting1;
+import com.optionringringtone.newringtonefree.object.CategoryName;
 import com.optionringringtone.newringtonefree.object.RingTone;
 
 import java.io.File;
@@ -58,14 +59,16 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
     private SharePreferenceUntil sharePreferenceUntil;
     private List<RingTone> ringTonesShared = new ArrayList<>();
     private String TAG = "DialogFragmentMoreFucntion";
+    private String title="";
 //    private LinearLayout btnDownLoadAndDeleteMusic;
 //    private ImageView imgDownloadAndDeleteMusic;
 //    private TextView  txtActionDownLoadOrDelete;
     private int DELETE_FILE_REQUEST = 1112;
     private int DOWNLOAD_FILE_REQUEST = 1111;
 
-    public DialogFragmentMoreCategory setRingTone(RingTone ringTone) {
+    public DialogFragmentMoreCategory setRingTone(RingTone ringTone, String title) {
         this.ringTone = ringTone;
+        this.title=title;
         return this;
     }
 
@@ -238,7 +241,7 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
 
 
     private void downloadFile() {
-        if (CommonUntil.isExistFileCategory(ringTone.getName())) {
+        if (CommonUntil.isExistFileCategory(ringTone.getName(), title)) {
 //            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
             String filePath=CommonUntil.getPathCategory("Funny")+"/"+ ringTone.getName() + "";
             File file = new File(filePath);
@@ -539,104 +542,6 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
                 return true;
         }
     }
-
-//    private void showDialogConfirmDownLoad() {
-//        String message = "Are you sure you want to download this ringtone?";
-//        if (txtActionDownLoadOrDelete.getText().toString().equalsIgnoreCase(getResources().getString(R.string.delete))) {
-//            message = "Are you sure you want to delete this ringtone?";
-//        }
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setTitle("");
-//        builder.setMessage(message);
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                if (txtActionDownLoadOrDelete.getText().toString().equalsIgnoreCase(getResources().getString(R.string.delete))) {
-//                    //delete file
-//                    if (CommonUntil.checkIfAlreadyhavePermission(getActivity(), new String[]
-//                            {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
-//                        //show dialog confirm delete
-//                        showAlertDialogDeleteFile();
-//                    } else {
-//                        CommonUntil.requestPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS}, DELETE_FILE_REQUEST);
-//                    }
-//                } else {
-//                    if (CommonUntil.checkIfAlreadyhavePermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                            Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
-//                        downloadFileOnly();
-//                    } else {
-//                        CommonUntil.requestPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS}, DOWNLOAD_FILE_REQUEST);
-//                    }
-//                }
-//            }
-//        });
-//        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
-
-
-//    public void showAlertDialogDeleteFile() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setTitle("");
-//        builder.setMessage("Are you sure you want to delete this ringtone?");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                ringTone.setPath(null);
-//                CommonUntil.deleteFile(ringTone.getName(), ringTone.getId() + "");
-//                deleteRingtoneFromListShared();
-//                txtActionDownLoadOrDelete.setText(getResources().getString(R.string.download));
-//                imgDownloadAndDeleteMusic.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_file_download_black_24dp));
-//            }
-//        });
-//        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
-//    private void downloadFileOnly() {
-//        CommonUntil.downLoadFile(getActivity(), ringTone, uri -> {
-//            Log.i(TAG, "downloadFileOnly- URI FILE: " + uri);
-//            if (uri == null) {
-//                CommonUntil.createDialog(getActivity(), getString(R.string.has_problem), getString(R.string.app_name)).show();
-//                return;
-//            }
-//
-//            // TODO: 22/06/2019 Download file success => save music to shared-file
-//            saveListRingtoneToShared();
-//            // TODO: 22/06/2019 update view download
-//            txtActionDownLoadOrDelete.setText(getResources().getString(R.string.delete));
-//            imgDownloadAndDeleteMusic.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_delete_black_24dp));
-//
-//
-//            Settting1.showAdsIn(false, getActivity(), new Settting1.CallbackShow() {
-//                @Override
-//                public void Displayed() {
-//
-//                }
-//
-//                @Override
-//                public void Close() {
-//                    Settting1.onCallLoadAdsIn(getActivity());
-//                }
-//            });
-//
-//        });
-//    }
 
 
     private void deleteRingtoneFromListShared() {

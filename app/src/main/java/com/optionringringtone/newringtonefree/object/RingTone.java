@@ -53,10 +53,12 @@ public class RingTone implements Serializable {
         this.isPlaying = isPlaying;
     }
 
-    public RingTone(String url,String name, String duration){
+    public RingTone(String url,String name, String duration,boolean isPlaying,int id){
         this.url=url;
         this.name=name;
         this.duration=duration;
+        this.isPlaying=isPlaying;
+        this.id=id;
     }
     public boolean isDownLoad() {
         return isDownLoad;

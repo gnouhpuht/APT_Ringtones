@@ -75,6 +75,7 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
     private List<RingTone> ringTonesShared = new ArrayList<>();
     private SharePreferenceUntil sharePreferenceUntil;
     private String cNumber;
+    private String title="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
 
         initMusic();
     }
+
+
 
     @Override
     protected void onResume() {
@@ -174,6 +177,7 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
             showDiaLogTrouble();
             return;
         }
+        title=bundle.getString("title");
         initView();
     }
 
@@ -520,8 +524,7 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
 
 
     private void downloadFile() {
-        if (CommonUntil.isExistFileCategory(ringTone.getName())) {
-//            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
+        if (CommonUntil.isExistFileCategory(ringTone.getName(),title)) {
             String filePath=CommonUntil.getPathCategory(CategoryName.class.getName())+"/"+ ringTone.getName() + "";
             File file = new File(filePath);
             if (type == TYPE_RINGTONE_CONTACT) {

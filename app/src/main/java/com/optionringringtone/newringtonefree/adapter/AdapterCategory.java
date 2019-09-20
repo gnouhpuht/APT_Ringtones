@@ -6,23 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.object.Category;
+
 import java.util.Locale;
+
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
     private ICategory inter;
     private Activity activity;
 
-    public AdapterCategory(Activity activity,  ICategory inter) {
+    public AdapterCategory(Activity activity, ICategory inter) {
         this.activity = activity;
-        this.inter=inter;
+        this.inter = inter;
     }
-
 
 
     @NonNull
@@ -35,7 +38,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category categoryOBJ=inter.getData(position);
+        Category categoryOBJ = inter.getData(position);
         if (!CommonUntil.isNullorEmty(categoryOBJ.getCategoryName()))
             holder.txtKeySearch.setText(categoryOBJ.getNameByLanguage(Locale.getDefault().getLanguage()));
         else
@@ -49,7 +52,10 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
         String name = categoryOBJ.getCategoryName().getEn();
         if (CommonUntil.isExistFileZip(name) == true) {
             holder.tvDownload.setVisibility(View.GONE);
+        }else {
+            holder.tvDownload.setVisibility(View.VISIBLE);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,14 +81,16 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             txtKeySearch = itemView.findViewById(R.id.tv_name_folder);
-            imageView=itemView.findViewById(R.id.iv_folder);
-            tvDownload=itemView.findViewById(R.id.download);
+            imageView = itemView.findViewById(R.id.iv_folder);
+            tvDownload = itemView.findViewById(R.id.download);
         }
     }
 
-    public interface ICategory{
+    public interface ICategory {
         int getItemCount();
-        void onClick (int position);
+
+        void onClick(int position);
+
         Category getData(int position);
     }
 }

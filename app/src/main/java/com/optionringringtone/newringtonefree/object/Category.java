@@ -57,6 +57,7 @@ public class Category implements Serializable {
     @Expose
     private String country;
 
+
     public Boolean getDeafultCategory() {
         return deafultCategory;
     }

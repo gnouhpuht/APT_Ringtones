@@ -1068,12 +1068,12 @@
         "source": "C:\\Users\\Thu Phuong\\.gradle\\caches\\transforms-2\\files-2.1\\2afbc527133f569d88f6785e776cc8f2\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_action.xml.flat",
-        "source": "C:\\Users\\Thu Phuong\\.gradle\\caches\\transforms-2\\files-2.1\\72ceca347c6665662b9c100ceca042bd\\res\\layout\\notification_action.xml"
-    },
-    {
         "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_detail_category.xml.flat",
         "source": "D:\\APT_Ringtones_01\\app\\src\\main\\res\\layout\\activity_detail_category.xml"
+    },
+    {
+        "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_action.xml.flat",
+        "source": "C:\\Users\\Thu Phuong\\.gradle\\caches\\transforms-2\\files-2.1\\72ceca347c6665662b9c100ceca042bd\\res\\layout\\notification_action.xml"
     },
     {
         "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_tabs_ripple_color.xml.flat",

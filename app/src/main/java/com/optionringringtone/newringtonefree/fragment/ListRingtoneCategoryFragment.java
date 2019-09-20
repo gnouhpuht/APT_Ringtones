@@ -61,7 +61,7 @@ public class ListRingtoneCategoryFragment extends FragmentCommon implements View
         prLoading = view.findViewById(R.id.prLoading);
         lstRing = getRingCategory(title);
 //        CommonUntil.setLayoutManager(activity, lv_lstRingtones, LinearLayout.VERTICAL);
-        adapterLstRingtone = new BaseAdapterListRingtone(activity, lstRing);
+        adapterLstRingtone = new BaseAdapterListRingtone(activity, lstRing,title);
         lv_lstRingtones.setAdapter(adapterLstRingtone);
         lv_lstRingtones.setDivider(null);
         toolbar_title = view.findViewById(R.id.toolbar_title);
@@ -97,7 +97,8 @@ public class ListRingtoneCategoryFragment extends FragmentCommon implements View
         {
             RingTone ringTone = new RingTone( files[i].getAbsolutePath ()+"",
                     files[i].getName(),
-                    null);
+                    null,
+                    false,i);
             ringtones.add(ringTone);
 
         }

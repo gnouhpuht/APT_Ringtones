@@ -3,6 +3,7 @@ package com.optionringringtone.newringtonefree.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,9 +30,10 @@ public class BaseAdapterListRingtone extends BaseAdapter {
     private List<RingTone> lstRingStone;
     private RingTone ringToneDataPlaying;
     private int idPlaying;
+    private int oldPlaying = -1;
 
-    private SeekBar skPlaying;
-    private ImageView ivStatus;
+    private static SeekBar skPlaying;
+    private static ImageView ivStatus;
     private Activity activity;
 
     private static MediaUntil mMediaInstance;
@@ -39,10 +41,12 @@ public class BaseAdapterListRingtone extends BaseAdapter {
     private Handler mHandler;
     private Runnable runnable;
     private MediaUntil.onChangeListener onChangeListener;
+    private String title="";
 
-    public BaseAdapterListRingtone(Activity activity, List<RingTone> lstRingStone) {
+    public BaseAdapterListRingtone(Activity activity, List<RingTone> lstRingStone,String title) {
         this.lstRingStone = lstRingStone;
         this.activity = activity;
+        this.title=title;
         mMediaInstance = MediaUntil.getInstance();
         idPlaying = -1;
         stopAudio();
@@ -79,10 +83,10 @@ public class BaseAdapterListRingtone extends BaseAdapter {
     private void play(RingTone ringToneData) {
         ringToneData.setChangeStatus(false);
         if (!CommonUntil.isNullorEmty(ringToneData.getUrl())
-                ||!CommonUntil.isNullorEmty(ringToneData.getPath())) {
+                || !CommonUntil.isNullorEmty(ringToneData.getPath())) {
             Log.i(TAG, "Url-play: " + ringToneData.getUrl());
             String url = ringToneData.getUrl();
-            if(!CommonUntil.isNullorEmty(ringToneData.getPath()))
+            if (!CommonUntil.isNullorEmty(ringToneData.getPath()))
                 url = ringToneData.getPath();
             mediaPlayer = mMediaInstance.playMusic(activity, url, ringToneData.getId() + "", onChangeListener);
             ringToneData.setPlaying(true);
@@ -104,13 +108,12 @@ public class BaseAdapterListRingtone extends BaseAdapter {
 
     public void stopAudio() {
         if (mediaPlayer != null) {
-
             mMediaInstance.stop();
             if (skPlaying != null)
                 skPlaying.setProgress(0);
             idPlaying = -1;
         }
-        if(ringToneDataPlaying != null)
+        if (ringToneDataPlaying != null)
             ringToneDataPlaying.setChangeStatus(true);
     }
 
@@ -187,17 +190,20 @@ public class BaseAdapterListRingtone extends BaseAdapter {
                 mediaPlayer.pause();
             notifyDataSetChanged();
         });
-        ln_layout_parent_item.setOnClickListener(v ->{
+        ln_layout_parent_item.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailActivityCategory.class);
             intent.putExtra("rintoneData", ringToneData);
+            Bundle bundle=new Bundle();
+            bundle.putString("title",title);
+            intent.putExtras(bundle);
             activity.startActivity(intent);
             SlideAnimationUtil.overridePendingTransitionEnter(activity);
         });
 
         iv_btn_more_func.setOnClickListener(view -> {
             DialogFragmentMoreCategory dialogFragmentMoreFucntion = new DialogFragmentMoreCategory();
-            dialogFragmentMoreFucntion.setRingTone(ringToneData);
-            dialogFragmentMoreFucntion.show(((AppCompatActivity)activity).getSupportFragmentManager(),"");
+            dialogFragmentMoreFucntion.setRingTone(ringToneData,title);
+            dialogFragmentMoreFucntion.show(((AppCompatActivity) activity).getSupportFragmentManager(), "");
         });
         return convertView;
     }
