@@ -5,15 +5,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.MediaUntil;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
 import com.optionringringtone.newringtonefree.Untils.SlideAnimationUtil;
 import com.optionringringtone.newringtonefree.adapter.BaseAdapterLstRingtoneV2;
+import com.optionringringtone.newringtonefree.mysetting.Settting1;
 import com.optionringringtone.newringtonefree.object.RingTone;
 
 import java.util.ArrayList;
@@ -31,6 +40,7 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
     private List<RingTone> lstRing;
     private MediaUntil mMediaInstance;
     private int sizeListDownLoad = 0;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,43 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
             adapterLstRingtone.notifyDataSetChanged();
             sizeListDownLoad = ringTones.size();
         }
+
+        AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
+        AdSettings.addTestDevice("HASHED ID");
+        adView = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout)findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Toast.makeText(MyDownloadActivity.this, "Error: " + adError.getErrorMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        });
+
+
+        // Request an ad
+        adView.loadAd();
     }
 
     private void initView() {
@@ -96,6 +143,9 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
         super.onDestroy();
         adapterLstRingtone.stopAudio();
         Log.i(TAG, "onDestroy: ");
+        if (adView != null) {
+            adView.destroy();
+        }
     }
 
     @Override

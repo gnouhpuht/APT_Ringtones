@@ -17,7 +17,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
-import com.optionringringtone.newringtonefree.Untils.DetailActivityCategory;
+import com.optionringringtone.newringtonefree.DetailActivityCategory;
 import com.optionringringtone.newringtonefree.Untils.MediaUntil;
 import com.optionringringtone.newringtonefree.Untils.SlideAnimationUtil;
 import com.optionringringtone.newringtonefree.fragment.DialogFragmentMoreCategory;

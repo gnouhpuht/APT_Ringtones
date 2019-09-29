@@ -66,6 +66,8 @@ dependencies {
 
     implementation 'com.gyf.loadview:loadview:1.0.7'
 
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

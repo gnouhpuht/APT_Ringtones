@@ -203,7 +203,7 @@
                         android:id="@+id/imgDownloadAndDeleteMusic"
                         android:layout_width="@dimen/dp_32"
                         android:layout_height="@dimen/dp_32"
-                        android:src="@drawable/ic_file_download_black_24dp" />
+                        android:src="@drawable/ic_file_download_white_24dp" />
 
                 </LinearLayout>
                 <TextView

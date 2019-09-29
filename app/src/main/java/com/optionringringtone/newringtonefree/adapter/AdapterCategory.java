@@ -6,16 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.object.Category;
-
 import java.util.Locale;
-
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
@@ -76,7 +72,8 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtKeySearch;
         private ImageView imageView;
-        private TextView tvDownload;
+       // private TextView tvDownload;
+        private ImageView tvDownload;
 
         public ViewHolder(View itemView) {
             super(itemView);

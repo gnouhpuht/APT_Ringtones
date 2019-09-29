@@ -1778,6 +1778,7 @@ drawable ic_delete_black_24dp
 drawable ic_fab_add
 drawable ic_fab_search
 drawable ic_file_download_black_24dp
+drawable ic_file_download_white_24dp
 drawable ic_head_phone
 drawable ic_home_black_24dp
 drawable ic_icons8_notification_100
@@ -1889,6 +1890,7 @@ id all
 id always
 id async
 id auto
+id banner_container
 id barrier
 id beginning
 id blocking
@@ -1962,6 +1964,7 @@ id fill_horizontal
 id fill_vertical
 id filled
 id fixed
+id fm_main
 id forever
 id ghost_view
 id give_us_a_review_landmine_button
@@ -2059,6 +2062,7 @@ id rdoUpdateRingtone
 id right
 id right_icon
 id right_side
+id rl_title
 id rl_toolbar
 id save_image_matrix
 id save_non_transition_alpha

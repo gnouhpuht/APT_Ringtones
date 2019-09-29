@@ -222,7 +222,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             imgDownloadAndDeleteMusic.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_delete_black_24dp));
         } else {
             txtActionDownLoadOrDelete.setText(getResources().getString(R.string.download));
-            imgDownloadAndDeleteMusic.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_file_download_black_24dp));
+            imgDownloadAndDeleteMusic.setImageDrawable(this.getResources().getDrawable(R.drawable.ic_file_download_white_24dp));
         }
     }
 
@@ -320,7 +320,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 CommonUntil.deleteFile(ringTone.getName(), ringTone.getId() + "");
                 deleteRingtoneFromListShared();
                 txtActionDownLoadOrDelete.setText(getResources().getString(R.string.download));
-                imgDownloadAndDeleteMusic.setImageDrawable(DetailActivity.this.getResources().getDrawable(R.drawable.ic_file_download_black_24dp));
+                imgDownloadAndDeleteMusic.setImageDrawable(DetailActivity.this.getResources().getDrawable(R.drawable.ic_file_download_white_24dp));
             }
         });
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -530,6 +530,74 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             String filePath = Configs.FOLDER + ringTone.getName() + "_ID_" + ringTone.getId() + ".mp3";
             File file = new File(filePath);
             if (type == TYPE_RINGTONE_CONTACT) {
+                if (setupUriForContact(cNumber, file)) {
+                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
+                    Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
+                        @Override
+                        public void Displayed() {
+
+                        }
+
+                        @Override
+                        public void Close() {
+                            Settting1.onCallLoadAdsIn( DetailActivity.this);
+                        }
+                    });
+                } else {
+                    CommonUntil.createDialog(this, getString(R.string.change_failed), getString(R.string.app_name)).show();
+                }
+            } else {
+                if (CommonUntil.checkCanBeChangeSystemSetting(this, READ_WRITE_REQUEST))
+                    setRingtone(file);
+            }
+
+            if (type == RingtoneManager.TYPE_RINGTONE) {
+                if (setupUriForContact(cNumber, file)) {
+                    setRingtone(file);
+                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
+                    Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
+                        @Override
+                        public void Displayed() {
+
+                        }
+
+                        @Override
+                        public void Close() {
+                            Settting1.onCallLoadAdsIn(DetailActivity.this);
+                        }
+                    });
+                } else {
+                    CommonUntil.createDialog(this, getString(R.string.change_failed), getString(R.string.app_name)).show();
+                }
+            } else {
+                if (CommonUntil.checkCanBeChangeSystemSetting(this, READ_WRITE_REQUEST))
+                    setRingtone(file);
+            }
+            if (type == RingtoneManager.TYPE_ALARM) {
+                if (setupUriForContact(cNumber, file)) {
+                    setRingtone(file);
+                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
+                    Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
+                        @Override
+                        public void Displayed() {
+
+                        }
+
+                        @Override
+                        public void Close() {
+                            Settting1.onCallLoadAdsIn(DetailActivity.this);
+                        }
+                    });
+                } else {
+                    CommonUntil.createDialog(this, getString(R.string.change_failed), getString(R.string.app_name)).show();
+                }
+            } else {
+                if (CommonUntil.checkCanBeChangeSystemSetting(this, READ_WRITE_REQUEST))
+                    setRingtone(file);
+            }
+
+            if (type == RingtoneManager.TYPE_NOTIFICATION) {
+                setRingtone(file);
                 if (setupUriForContact(cNumber, file)) {
                     CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {

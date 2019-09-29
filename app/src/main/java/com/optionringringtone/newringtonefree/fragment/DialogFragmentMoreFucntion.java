@@ -526,7 +526,7 @@ public class DialogFragmentMoreFucntion extends DialogFragment implements View.O
                 CommonUntil.deleteFile(ringTone.getName(), ringTone.getId() + "");
                 deleteRingtoneFromListShared();
                 txtActionDownLoadOrDelete.setText(getResources().getString(R.string.download));
-                imgDownloadAndDeleteMusic.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_file_download_black_24dp));
+                imgDownloadAndDeleteMusic.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_file_download_white_24dp));
             }
         });
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

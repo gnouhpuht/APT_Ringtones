@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context="com.optionringringtone.newringtonefree.MyDownloadActivity">
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -31,8 +32,17 @@
     </RelativeLayout>
     <ListView
         android:id="@+id/rcListDownload"
+        android:layout_below="@+id/rl_title"
+        android:layout_above="@id/banner_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </ListView>
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

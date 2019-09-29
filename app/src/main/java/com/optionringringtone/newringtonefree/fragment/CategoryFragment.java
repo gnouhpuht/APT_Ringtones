@@ -4,6 +4,7 @@ package com.optionringringtone.newringtonefree.fragment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.gyf.loadview.LoadView;
+import com.optionringringtone.newringtonefree.FacebookAds;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.DownloadFileAsync2;
 import com.optionringringtone.newringtonefree.Untils.FragmentCommon;
@@ -31,7 +43,7 @@ import java.util.List;
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class CategoryFragment extends FragmentCommon implements AdapterCategory.ICategory {
-    private static final String TAG = "CategoriesFragment";
+    private static final String TAG = "CategoryFragment";
     private ProgressBar prLoading;
     private RecyclerView rcFolderCategory;
     private AdapterCategory adapterLstRingtone;
@@ -41,7 +53,6 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
     private CategoryName categoryName;
     private static String baseUrl = "https://ring.sgp1.digitaloceanspaces.com/newCategoryTest/";
     private LoadView loadView;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +71,7 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
 
         loadView = view.findViewById(R.id.load_view);
         getDataCategory();
+
     }
 
     private List<Category> getDataCategory() {
@@ -202,7 +214,8 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
             CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
                     .setTitle(categoryNames.get(position).getEn())
             );
-
+            Intent intent=new Intent(getActivity(), FacebookAds.class);
+            startActivity(intent);
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("");
@@ -211,14 +224,18 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    Intent intent=new Intent(getActivity(), FacebookAds.class);
+                    startActivity(intent);
                     downloadAndExtrack(url, position);
                 }
             });
             builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    Intent intent=new Intent(getActivity(), FacebookAds.class);
+                    startActivity(intent);
                     dialog.dismiss();
+
                 }
             });
             AlertDialog alertDialog = builder.create();
@@ -283,5 +300,10 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
             if (activity != null)
                 Toast.makeText(activity, activity.getResources().getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

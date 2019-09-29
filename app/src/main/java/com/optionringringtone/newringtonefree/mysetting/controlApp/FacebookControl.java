@@ -32,7 +32,7 @@ public class FacebookControl {
     public static void init(Context mContext) {
 
         AudienceNetworkAds.initialize(mContext.getApplicationContext());
-        AdSettings.addTestDevice("114c29ea-17c5-4f6b-b949-3965c12c56f3");
+        AdSettings.addTestDevice("d0163796-81e7-4fc9-a1dc-47f15259985d");
     }
 
     public static InterstitialAd interstitialAd_fb_in;
@@ -54,7 +54,8 @@ public class FacebookControl {
 
     //-----------IN--------------
 
-    public static void loadFB_Action(Context mContext, final com.facebook.ads.InterstitialAd interstitialAd_fb, final CallBackFabookAds mCallBackFabookAds) {
+    public static void loadFB_Action(Context mContext, final com.facebook.ads.InterstitialAd interstitialAd_fb,
+                                     final CallBackFabookAds mCallBackFabookAds) {
 
 
 //        if (interstitialAd_fb == null) Log.d(IKEN_FB_IN, "[loadFB_Action] 1");
@@ -119,7 +120,9 @@ public class FacebookControl {
 
 
     public static void loadFb_Center_CallBack(Context mContext, final CallBackFabookAds mCallBackFabookAds) {
-        if (!isLoadingFbIn && (interstitialAd_fb_in == null || interstitialAd_fb_in.isAdInvalidated()) && (AdmodControl.interstitial_adm_in == null || (!AdmodControl.interstitial_adm_in.isLoading() && !AdmodControl.interstitial_adm_in.isLoaded()))) {
+        if (!isLoadingFbIn && (interstitialAd_fb_in == null || interstitialAd_fb_in.isAdInvalidated()) &&
+                (AdmodControl.interstitial_adm_in == null || (!AdmodControl.interstitial_adm_in.isLoading() &&
+                        !AdmodControl.interstitial_adm_in.isLoaded()))) {
             isLoadingFbIn = true;
 
 

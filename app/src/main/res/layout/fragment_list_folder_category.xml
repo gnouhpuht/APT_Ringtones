@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fm_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.optionringringtone.newringtonefree.fragment.CategoriesFragment">
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_folder_category"
+   >
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/banner_container"
+            android:id="@+id/rc_folder_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
     <com.gyf.loadview.LoadView
         android:id="@+id/loadView"
         android:layout_width="wrap_content"

@@ -80,7 +80,7 @@
             android:name="com.optionringringtone.newringtonefree.DetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.optionringringtone.newringtonefree.Untils.DetailActivityCategory"
+            android:name="com.optionringringtone.newringtonefree.DetailActivityCategory"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -134,6 +134,14 @@
             android:label=""
             android:noHistory="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.optionringringtone.newringtonefree.FacebookAds"
+            android:autoRemoveFromRecents="true"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:icon="@mipmap/ic_setting"
+            android:label=""
+            android:noHistory="true" />
 
         <service
             android:name="com.optionringringtone.newringtonefree.mysetting.HomeServicePlayRing2"

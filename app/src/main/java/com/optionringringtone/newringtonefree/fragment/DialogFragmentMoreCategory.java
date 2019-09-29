@@ -3,6 +3,7 @@ package com.optionringringtone.newringtonefree.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -13,7 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -21,9 +22,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -31,10 +33,8 @@ import androidx.fragment.app.DialogFragment;
 import com.google.gson.Gson;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.Configs;
-import com.optionringringtone.newringtonefree.Untils.DetailActivityCategory;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
 import com.optionringringtone.newringtonefree.mysetting.Settting1;
-import com.optionringringtone.newringtonefree.object.CategoryName;
 import com.optionringringtone.newringtonefree.object.RingTone;
 
 import java.io.File;
@@ -218,7 +218,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
             Uri rUri = RingtoneManager.getValidRingtoneUri(getActivity());
             if (rUri != null)
                 RingtoneManager.setActualDefaultRingtoneUri(getActivity().getApplicationContext(), type, newUri);
-            CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+            diglog();
+//            CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
             Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                 @Override
                 public void Displayed() {
@@ -243,11 +244,12 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
     private void downloadFile() {
         if (CommonUntil.isExistFileCategory(ringTone.getName(), title)) {
 //            String filePath = Environment.getExternalStorageDirectory().getPath() + Configs.PATH_STORAGE_CATEGORY + "Most Popular/Most_Popular/" + ringTone.getName() + "";
-            String filePath=CommonUntil.getPathCategory("Funny")+"/"+ ringTone.getName() + "";
+            String filePath=CommonUntil.getPathCategory(title)+"/"+ ringTone.getName() + "";
             File file = new File(filePath);
             if (type == TYPE_RINGTONE_CONTACT) {
                 if (setupUriForContact(cNumber, file)) {
-                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+                    diglog();
+//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -270,7 +272,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
             if (type == RingtoneManager.TYPE_RINGTONE) {
                 if (setupUriForContact(cNumber, file)) {
                     setRingtone(file);
-                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+                    diglog();
+//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -292,7 +295,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
             if (type == RingtoneManager.TYPE_ALARM) {
                 if (setupUriForContact(cNumber, file)) {
                     setRingtone(file);
-                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+                    diglog();
+//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -315,7 +319,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
             if (type == RingtoneManager.TYPE_NOTIFICATION) {
                 setRingtone(file);
                 if (setupUriForContact(cNumber, file)) {
-                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+                    diglog();
+//                    CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -348,7 +353,8 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
                 if (type == TYPE_RINGTONE_CONTACT) {
                     File file = new File(uri.getPath());
                     if (setupUriForContact(cNumber, file)) {
-                        CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
+                        diglog();
+//                        CommonUntil.createDialog(getActivity(), getString(R.string.change_success), getString(R.string.app_name)).show();
                         Settting1.showAdsIn(false, getContext(), new Settting1.CallbackShow() {
                             @Override
                             public void Displayed() {
@@ -373,7 +379,25 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
         }
     }
 
-    private void saveListRingtoneToShared() {
+    private void diglog() {
+        final ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("set ringtone.....");
+        dialog.show();
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.change_success), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 3000);
+    }
+        private void saveListRingtoneToShared() {
         if (ringTone == null) return;
         String jsonListData = sharePreferenceUntil.getJsonListMusic();
         ringTonesShared = CommonUntil.convertJsonRingtonToList(jsonListData);

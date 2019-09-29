@@ -20,8 +20,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,6 +35,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,7 +49,6 @@ import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.Configs;
 import com.optionringringtone.newringtonefree.Untils.SlideAnimationUtil;
 import com.optionringringtone.newringtonefree.adapter.ViewPagerAdapter;
-import com.optionringringtone.newringtonefree.fragment.CategoriesFragment;
 import com.optionringringtone.newringtonefree.fragment.CategoryFragment;
 import com.optionringringtone.newringtonefree.fragment.PopularFragment;
 import com.optionringringtone.newringtonefree.mysetting.AllSetting;
@@ -63,11 +70,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar progress_loadding;
     private FloatingActionButton fabSearch;
     private CategoryFragment categoriesFragment;
-//    private CategoriesFragment categoriesFragment;
     private PopularFragment popularFragment;
     MenuItem prevMenuItem;
     private String TAG = "MainActivity";
     private int READ_WRITE_REQUEST = 1110;
+
+    private AdView adView;
+
 
 
     @Override
@@ -94,6 +103,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         viewPager.addOnPageChangeListener(onViewpagerOnpageChanger);
         setupViewPager(viewPager);
+
+        AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
+        AdSettings.addTestDevice("HASHED ID");
+        adView = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout)findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        });
+
+
+        // Request an ad
+        adView.loadAd();
     }
 
     @Override
@@ -587,7 +634,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        categoriesFragment = new CategoriesFragment();
         categoriesFragment = new CategoryFragment();
         popularFragment = new PopularFragment();
         adapter.addFragment(popularFragment);
@@ -640,6 +686,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy() {
         super.onDestroy();
         AllSetting.onDestroyAct();
+        if (adView != null) {
+            adView.destroy();
+        }
     }
 
 

@@ -1,11 +1,24 @@
 package com.optionringringtone.newringtonefree.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
+
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
+import com.optionringringtone.newringtonefree.MainActivity;
 import com.optionringringtone.newringtonefree.Untils.Configs;
 import com.optionringringtone.newringtonefree.Untils.FragmentCommon;
 import com.optionringringtone.newringtonefree.Untils.RetrofitUtil;
@@ -33,6 +46,8 @@ public class PopularFragment extends FragmentCommon {
     List<ResponseDTO> lstRingtones;
     private List<RingTone> lstRing;
 
+
+
     public PopularFragment() {
     }
 
@@ -50,6 +65,8 @@ public class PopularFragment extends FragmentCommon {
         adapterLstRingtone = new BaseAdapterPopular(activity, lstRing);
         lv_lstRingtones.setAdapter(adapterLstRingtone);
         lv_lstRingtones.setDivider(null);
+
+
     }
 
     private void getDataRingtonePopular() {
@@ -90,4 +107,6 @@ public class PopularFragment extends FragmentCommon {
         super.onPause();
         adapterLstRingtone.stopAudio();
     }
+
+
 }
