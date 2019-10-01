@@ -60,6 +60,8 @@
     <string name="download_error">Download error</string>
     <string name="download_complete">Download complete</string>
     <string name="download_start">Download start</string>
+
+    <string name="banner_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
 
 

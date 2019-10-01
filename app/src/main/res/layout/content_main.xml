@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.optionringringtone.newringtonefree.MainActivity"
@@ -27,10 +28,17 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/navigation"
                 android:orientation="vertical"/>
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/banner"
+                android:layout_above="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="@string/banner_id" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/banner_container">
+                android:layout_above="@+id/banner">
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewpager"

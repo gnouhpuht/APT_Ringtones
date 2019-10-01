@@ -35,12 +35,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.facebook.ads.Ad;
-import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
-import com.facebook.ads.AdSettings;
-import com.facebook.ads.AdSize;
-import com.facebook.ads.AdView;
+
+import com.facebook.ads.*;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,9 +54,7 @@ import com.optionringringtone.newringtonefree.mysetting.AllSetting;
 import com.optionringringtone.newringtonefree.mysetting.Settting1;
 import com.optionringringtone.newringtonefree.mysetting.controlApp.AdmodControl;
 import com.optionringringtone.newringtonefree.mysetting.controlApp.FacebookControl;
-
 import java.util.Locale;
-
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -71,11 +68,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton fabSearch;
     private CategoryFragment categoriesFragment;
     private PopularFragment popularFragment;
-    MenuItem prevMenuItem;
+    private MenuItem prevMenuItem;
     private String TAG = "MainActivity";
     private int READ_WRITE_REQUEST = 1110;
 
-    private AdView adView;
+    private com.facebook.ads.AdView adView;
+    private com.facebook.ads.InterstitialAd interstitialAd;
+
+    private AdView banner;
 
 
 
@@ -106,7 +106,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
         AdSettings.addTestDevice("HASHED ID");
-        adView = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+        loadBanner();
+        loadVideo();
+
+
+    }
+
+    private void loadVideo() {
+        interstitialAd = new com.facebook.ads.InterstitialAd(this, "YOUR_PLACEMENT_ID");
+        interstitialAd.setAdListener(new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.");
+            }
+
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.");
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                // Show the ad
+                interstitialAd.show();
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!");
+            }
+        });
+
+        // For auto play video ads, it's recommended to load the ad
+        // at least 30 seconds before it is shown
+        interstitialAd.loadAd();
+    }
+
+    private void loadBanner(){
+        adView = new com.facebook.ads.AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
 
         // Find the Ad Container
         LinearLayout adContainer = (LinearLayout)findViewById(R.id.banner_container);
@@ -114,12 +168,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Add the ad view to your activity layout
         adContainer.addView(adView);
 
-        adView.setAdListener(new AdListener() {
+        adView.setAdListener(new com.facebook.ads.AdListener() {
             @Override
             public void onError(Ad ad, AdError adError) {
                 // Ad error callback
-                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
-                        Toast.LENGTH_LONG).show();
+                requestAds();
+//                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
+//                        Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -142,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Request an ad
         adView.loadAd();
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -696,5 +750,51 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,},
                 1);
+    }
+
+    private void requestAds(){
+        banner = (AdView)findViewById(R.id.banner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //Khi ad bị close bởi người dùng
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                //Khi load quảng cáo lỗi, bạn có thể load quảng cáo của mạng khác để thay thế tại đây
+                switch (i){
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        //Khi không còn quảng cáo nào phù hợp
+                        break;
+                }
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Khi quảng cáo được mở
+            }
+
+            @Override
+            public void onAdLoaded() {
+                //Khi quảng cáo đã load xong
+            }
+        });
+        banner.loadAd(adRequest);
     }
 }

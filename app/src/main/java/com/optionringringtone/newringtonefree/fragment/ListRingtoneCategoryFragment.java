@@ -3,10 +3,13 @@ package com.optionringringtone.newringtonefree.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import com.facebook.ads.*;
+import com.google.android.gms.ads.AdRequest;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.FragmentCommon;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
@@ -28,14 +31,100 @@ public class ListRingtoneCategoryFragment extends FragmentCommon implements View
     private TextView toolbar_title;
     private ImageView iv_back;
     private String title = "";
+    private com.facebook.ads.AdView adView;
+    private com.google.android.gms.ads.AdView banner;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         sharePreferenceUntil = SharePreferenceUntil.getInstance(getContext());
         super.onCreate(savedInstanceState);
+
+    }
+    private void loadBanner(View view){
+        adView = new com.facebook.ads.AdView(getActivity(), "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout)view.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        adView.setAdListener(new com.facebook.ads.AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                requestAds(view);
+//                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
+//                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        });
+
+
+        // Request an ad
+        adView.loadAd();
     }
 
+    private void requestAds(View view){
+        banner = (com.google.android.gms.ads.AdView)view.findViewById(R.id.banner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner.setAdListener(new com.google.android.gms.ads.AdListener() {
+            @Override
+            public void onAdClosed() {
+                //Khi ad bị close bởi người dùng
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                //Khi load quảng cáo lỗi, bạn có thể load quảng cáo của mạng khác để thay thế tại đây
+                switch (i){
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        //Khi không còn quảng cáo nào phù hợp
+                        break;
+                }
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Khi quảng cáo được mở
+            }
+
+            @Override
+            public void onAdLoaded() {
+                //Khi quảng cáo đã load xong
+            }
+        });
+        banner.loadAd(adRequest);
+    }
     public ListRingtoneCategoryFragment setId(String id) {
         this.id = id;
         return this;
@@ -68,7 +157,9 @@ public class ListRingtoneCategoryFragment extends FragmentCommon implements View
         toolbar_title.setText(title);
         iv_back = view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(this);
-
+        AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
+        AdSettings.addTestDevice("HASHED ID");
+        loadBanner(view);
     }
 
 

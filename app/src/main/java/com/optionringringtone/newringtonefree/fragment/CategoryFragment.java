@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,6 +25,7 @@ import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAdListener;
 import com.gyf.loadview.LoadView;
 import com.optionringringtone.newringtonefree.FacebookAds;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
@@ -40,6 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class CategoryFragment extends FragmentCommon implements AdapterCategory.ICategory {
@@ -53,6 +57,7 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
     private CategoryName categoryName;
     private static String baseUrl = "https://ring.sgp1.digitaloceanspaces.com/newCategoryTest/";
     private LoadView loadView;
+    private com.facebook.ads.InterstitialAd interstitialAd;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +76,8 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
 
         loadView = view.findViewById(R.id.load_view);
         getDataCategory();
+        AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
+        AdSettings.addTestDevice("HASHED ID");
 
     }
 
@@ -208,14 +215,18 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
 
     @Override
     public void onClick(int position) {
+        Random random=new Random();
+        int n=random.nextInt(lstCategories.size());
         String url = getCategoryName().get(position).getEn() + ".zip";
         String name = getCategoryName().get(position).getEn();
         if (CommonUntil.isExistFileZip(name) == true) {
             CommonUntil.replaceFragment(activity, new ListRingtoneCategoryFragment().setId(lstCategories.get(position) + "")
                     .setTitle(categoryNames.get(position).getEn())
             );
-            Intent intent=new Intent(getActivity(), FacebookAds.class);
-            startActivity(intent);
+            if (n==position){
+                loadVideo();
+            }
+
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("");
@@ -224,8 +235,9 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent=new Intent(getActivity(), FacebookAds.class);
-                    startActivity(intent);
+//                    Intent intent=new Intent(getActivity(), FacebookAds.class);
+//                    startActivity(intent);
+                    loadVideo();
                     downloadAndExtrack(url, position);
                 }
             });
@@ -301,7 +313,52 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
                 Toast.makeText(activity, activity.getResources().getString(R.string.download_complete), Toast.LENGTH_SHORT).show();
         }
     }
+    private void loadVideo() {
+        interstitialAd = new com.facebook.ads.InterstitialAd(getActivity(), "YOUR_PLACEMENT_ID");
+        interstitialAd.setAdListener(new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.");
+            }
 
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.");
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                // Show the ad
+                interstitialAd.show();
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!");
+            }
+        });
+
+        // For auto play video ads, it's recommended to load the ad
+        // at least 30 seconds before it is shown
+        interstitialAd.loadAd();
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

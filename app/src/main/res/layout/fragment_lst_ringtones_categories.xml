@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -36,7 +38,9 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_below="@+id/rl_toolbar"
+        android:layout_above="@+id/banner_container"
+        android:layout_height="wrap_content">
         <ProgressBar
             android:visibility="gone"
             android:id="@+id/prLoading"
@@ -46,8 +50,23 @@
         <ListView
             android:id="@+id/lv_lstRingtones"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/item_adapter_music"/>
     </RelativeLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" />
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/banner"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

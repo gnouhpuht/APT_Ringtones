@@ -17,6 +17,7 @@ import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.MediaUntil;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
@@ -41,7 +42,7 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
     private MediaUntil mMediaInstance;
     private int sizeListDownLoad = 0;
     private AdView adView;
-
+    private com.google.android.gms.ads.AdView banner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,7 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
         sharePreferenceUntil = SharePreferenceUntil.getInstance(this);
         initView();
         initData();
+
     }
 
     private void initData() {
@@ -77,8 +79,9 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onError(Ad ad, AdError adError) {
                 // Ad error callback
-                Toast.makeText(MyDownloadActivity.this, "Error: " + adError.getErrorMessage(),
-                        Toast.LENGTH_LONG).show();
+                requestAds();
+//                Toast.makeText(MyDownloadActivity.this, "Error: " + adError.getErrorMessage(),
+//                        Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -168,5 +171,51 @@ public class MyDownloadActivity extends AppCompatActivity implements View.OnClic
                 sizeListDownLoad = ringTones.size();
             }
         }
+    }
+
+    private void requestAds(){
+        banner = (com.google.android.gms.ads.AdView)findViewById(R.id.banner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner.setAdListener(new com.google.android.gms.ads.AdListener() {
+            @Override
+            public void onAdClosed() {
+                //Khi ad bị close bởi người dùng
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                //Khi load quảng cáo lỗi, bạn có thể load quảng cáo của mạng khác để thay thế tại đây
+                switch (i){
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        //Khi không còn quảng cáo nào phù hợp
+                        break;
+                }
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Khi quảng cáo được mở
+            }
+
+            @Override
+            public void onAdLoaded() {
+                //Khi quảng cáo đã load xong
+            }
+        });
+        banner.loadAd(adRequest);
     }
 }

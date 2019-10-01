@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.optionringringtone.newringtonefree.MyDownloadActivity">
+
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
@@ -30,19 +32,30 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/pt_10" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/rcListDownload"
-        android:layout_below="@+id/rl_title"
-        android:layout_above="@id/banner_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/banner_container"
+        android:layout_below="@+id/rl_title">
 
     </ListView>
+
     <LinearLayout
         android:id="@+id/banner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:layout_alignParentRight="true" />
+        android:orientation="vertical" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/banner"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

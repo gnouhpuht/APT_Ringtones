@@ -1890,6 +1890,7 @@ id all
 id always
 id async
 id auto
+id banner
 id banner_container
 id barrier
 id beginning
@@ -2326,6 +2327,7 @@ string app_id_ads
 string app_name
 string appbar_scrolling_view_behavior
 string are_you_sure_set
+string banner_id
 string bottom_sheet_behavior
 string cancel
 string category
