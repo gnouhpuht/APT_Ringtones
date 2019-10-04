@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,17 +30,6 @@
                     android:src="@drawable/ic_back"
                     android:tint="@color/colorPrimary" />
 
-                <!--<ImageButton-->
-                <!--android:id="@+id/btnDownLoadAndDeleteMusic"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:src="@drawable/ic_cloud_download"-->
-                <!--android:paddingLeft="@dimen/dp_24"-->
-                <!--android:paddingRight="@dimen/dp_24"-->
-                <!--android:tint="@color/colorPrimary"-->
-                <!--android:background="?selectableItemBackgroundBorderless"-->
-                <!--android:layout_height="?actionBarSize"-->
-                <!--android:layout_alignParentRight="true" />-->
                 <TextView
                     android:id="@+id/txtNameMusic"
                     android:layout_width="wrap_content"
@@ -94,43 +84,6 @@
         </LinearLayout>
 
 
-        <!--<RelativeLayout-->
-        <!--android:layout_below="@+id/ln_play"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentRight="true">-->
-        <!--<ImageView-->
-        <!--android:id="@+id/btnBack"-->
-        <!--android:layout_width="@dimen/dp_32"-->
-        <!--android:layout_height="@dimen/dp_32"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:src="@drawable/ic_back"-->
-        <!--android:tint="@color/colorPrimary" />-->
-        <!--<LinearLayout-->
-        <!--android:id="@+id/btnDownLoadAndDeleteMusic"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical">-->
-        <!--<ImageView-->
-        <!--android:id="@+id/imgDownloadAndDeleteMusic"-->
-        <!--android:layout_width="@dimen/dp_24"-->
-        <!--android:layout_height="@dimen/dp_24"-->
-        <!--android:src="@drawable/icons8_downloads_folder_64" />-->
-        <!--<TextView-->
-        <!--android:id="@+id/txtActionDownLoadOrDelete"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/dp_5"-->
-        <!--android:text="@string/download"-->
-        <!--android:textColor="@color/color_black_90" />-->
-        <!--</LinearLayout>-->
-        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:id="@+id/tv_time"
@@ -317,8 +270,22 @@
                         android:textSize="@dimen/dp_12" />
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_id" />
     </RelativeLayout>
 </LinearLayout>

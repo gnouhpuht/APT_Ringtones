@@ -1,8 +1,17 @@
 package com.optionringringtone.newringtonefree.mysetting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSize;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.optionringringtone.newringtonefree.mysetting.controlApp.AdmodControl;
 import com.optionringringtone.newringtonefree.mysetting.controlApp.ConstantsAppNew;
@@ -10,6 +19,8 @@ import com.optionringringtone.newringtonefree.mysetting.controlApp.FacebookContr
 import com.optionringringtone.newringtonefree.mysetting.myReceiver.My2Receiver;
 
 import java.util.Random;
+
+import freeringtones.newringtones.dowloadringtones.iphoneringtone2222.R;
 
 public class Setting2 {
 
@@ -169,4 +180,88 @@ public class Setting2 {
         });
     }
 
+
+    public static void loadBanner(com.facebook.ads.AdView adView, View view, Activity activity,AdView banner){
+        adView = new com.facebook.ads.AdView(activity, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout)view.findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        adView.setAdListener(new com.facebook.ads.AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                requestAds(banner,view);
+//                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
+//                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        });
+
+
+        // Request an ad
+        adView.loadAd();
+    }
+    private static void requestAds(AdView banner,View view){
+        banner = (AdView)view.findViewById(R.id.banner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //Khi ad bị close bởi người dùng
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                //Khi load quảng cáo lỗi, bạn có thể load quảng cáo của mạng khác để thay thế tại đây
+                switch (i){
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        //Khi không còn quảng cáo nào phù hợp
+                        break;
+                }
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Khi quảng cáo được mở
+            }
+
+            @Override
+            public void onAdLoaded() {
+                //Khi quảng cáo đã load xong
+            }
+        });
+        banner.loadAd(adRequest);
+    }
 }

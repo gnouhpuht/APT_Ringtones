@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -36,7 +35,6 @@ import com.optionringringtone.newringtonefree.Untils.Configs;
 import com.optionringringtone.newringtonefree.Untils.SharePreferenceUntil;
 import com.optionringringtone.newringtonefree.mysetting.Settting1;
 import com.optionringringtone.newringtonefree.object.RingTone;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +58,6 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
     private List<RingTone> ringTonesShared = new ArrayList<>();
     private String TAG = "DialogFragmentMoreFucntion";
     private String title="";
-//    private LinearLayout btnDownLoadAndDeleteMusic;
-//    private ImageView imgDownloadAndDeleteMusic;
-//    private TextView  txtActionDownLoadOrDelete;
     private int DELETE_FILE_REQUEST = 1112;
     private int DOWNLOAD_FILE_REQUEST = 1111;
 
@@ -88,15 +83,10 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
         btnSetRingtoneContact = view.findViewById(R.id.btnSetRingtoneContact);
         txtNameMusic = view.findViewById(R.id.txtNameMusic);
         txtNameMusic.setText(ringTone.getName());
-//        btnDownLoadAndDeleteMusic=view.findViewById(R.id.btnDownLoadAndDeleteMusic);
-//        imgDownloadAndDeleteMusic = view.findViewById(R.id.imgDownloadAndDeleteMusic);
-//        txtActionDownLoadOrDelete = view.findViewById(R.id.txtActionDownLoadOrDelete);
-//
         btnSetDefaultRingtone.setOnClickListener(this);
         btnSetDefaultNotification.setOnClickListener(this);
         btnSetDefaultAlarm.setOnClickListener(this);
         btnSetRingtoneContact.setOnClickListener(this);
-//        btnDownLoadAndDeleteMusic.setOnClickListener(this);
     }
 
     @Override
@@ -118,12 +108,7 @@ public class DialogFragmentMoreCategory extends DialogFragment implements View.O
                 type = TYPE_RINGTONE_CONTACT;
                 showAlertDialogSetRingtone();
                 break;
-//            case R.id.imgDownloadAndDeleteMusic:
-//                showDialogConfirmDownLoad();
-//                break;
-//            case R.id.btnDownLoadAndDeleteMusic:
-//                showDialogConfirmDownLoad();
-//                break;
+
         }
     }
 

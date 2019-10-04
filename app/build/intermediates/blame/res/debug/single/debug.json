@@ -1740,6 +1740,10 @@
         "source": "C:\\Users\\Thu Phuong\\.gradle\\caches\\transforms-2\\files-2.1\\2afbc527133f569d88f6785e776cc8f2\\res\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
+        "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_navite_banner.xml.flat",
+        "source": "D:\\APT_Ringtones_01\\app\\src\\main\\res\\layout\\item_navite_banner.xml"
+    },
+    {
         "merged": "D:\\APT_Ringtones_01\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_seekbar_tick_mark_material.xml.flat",
         "source": "C:\\Users\\Thu Phuong\\.gradle\\caches\\transforms-2\\files-2.1\\2afbc527133f569d88f6785e776cc8f2\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },

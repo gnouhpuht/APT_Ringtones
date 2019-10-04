@@ -26,6 +26,9 @@ import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.facebook.ads.InterstitialAdListener;
+import com.facebook.ads.NativeAdListener;
+import com.facebook.ads.NativeBannerAd;
+import com.facebook.ads.NativeBannerAdView;
 import com.gyf.loadview.LoadView;
 import com.optionringringtone.newringtonefree.FacebookAds;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
@@ -78,7 +81,7 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
         getDataCategory();
         AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
         AdSettings.addTestDevice("HASHED ID");
-
+        adapterLstRingtone.notifyDataSetChanged();
     }
 
     private List<Category> getDataCategory() {
@@ -235,8 +238,6 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-//                    Intent intent=new Intent(getActivity(), FacebookAds.class);
-//                    startActivity(intent);
                     loadVideo();
                     downloadAndExtrack(url, position);
                 }
@@ -273,7 +274,7 @@ public class CategoryFragment extends FragmentCommon implements AdapterCategory.
         progressDialog.setIndeterminate(false);
         progressDialog.setMax(100);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         File file = new File(name);
         if (!file.exists()) {
             DownloadFileAsync2 mDownloadFileAsync = new DownloadFileAsync2(name, lstCategories.get(position).getCategoryName().getEn(),

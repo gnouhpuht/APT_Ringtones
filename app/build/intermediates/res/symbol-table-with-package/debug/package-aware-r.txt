@@ -2249,6 +2249,7 @@ layout item_adapter_categories
 layout item_adapter_music
 layout item_adapter_search
 layout item_categories
+layout item_navite_banner
 layout load_view
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include

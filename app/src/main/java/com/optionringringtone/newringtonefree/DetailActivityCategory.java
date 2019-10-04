@@ -37,6 +37,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AdSize;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.optionringringtone.newringtonefree.Untils.CommonUntil;
 import com.optionringringtone.newringtonefree.Untils.Configs;
@@ -82,6 +89,8 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
     private SharePreferenceUntil sharePreferenceUntil;
     private String cNumber;
     private String title="";
+    private com.facebook.ads.AdView adView;
+    private AdView banner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +100,94 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
         initData();
 
         initMusic();
+        AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE);
+        AdSettings.addTestDevice("HASHED ID");
+        loadBanner();
     }
 
+    private void loadBanner(){
+        adView = new com.facebook.ads.AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
 
+        // Find the Ad Container
+        LinearLayout adContainer = (LinearLayout)findViewById(R.id.banner_container);
+
+        // Add the ad view to your activity layout
+        adContainer.addView(adView);
+
+        adView.setAdListener(new com.facebook.ads.AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                requestAds();
+//                Toast.makeText(MainActivity.this, "Error: " + adError.getErrorMessage(),
+//                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+            }
+        });
+
+
+        // Request an ad
+        adView.loadAd();
+    }
+    private void requestAds(){
+        banner = (AdView)findViewById(R.id.banner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //Khi ad bị close bởi người dùng
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                //Khi load quảng cáo lỗi, bạn có thể load quảng cáo của mạng khác để thay thế tại đây
+                switch (i){
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        //Khi không còn quảng cáo nào phù hợp
+                        break;
+                }
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Khi quảng cáo được mở
+            }
+
+            @Override
+            public void onAdLoaded() {
+                //Khi quảng cáo đã load xong
+            }
+        });
+        banner.loadAd(adRequest);
+    }
 
     @Override
     protected void onResume() {
@@ -191,9 +285,7 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
     private void initView() {
         btnBack = findViewById(R.id.btnBack);
         imgPlayPauseMusic = findViewById(R.id.imgPlayPauseMusic);
-//        imgDownloadAndDeleteMusic = findViewById(R.id.imgDownloadAndDeleteMusic);
         btnPlayPauseMusic = findViewById(R.id.btnPlayPauseMusic);
-//        btnDownLoadAndDeleteMusic = findViewById(R.id.btnDownLoadAndDeleteMusic);
         btnSetDefaultRingtone = findViewById(R.id.btnSetDefaultRingtone);
         btnSetDefaultNotification = findViewById(R.id.btnSetDefaultNotification);
         btnSetDefaultAlarm = findViewById(R.id.btnSetDefaultAlarm);
@@ -201,13 +293,10 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
         txtTimeDuration = findViewById(R.id.txtTimeDuration);
         txtTotalTime = findViewById(R.id.txtTotalTime);
         skMusic = findViewById(R.id.skMusic);
-//        txtActionDownLoadOrDelete = findViewById(R.id.txtActionDownLoadOrDelete);
         txtNameMusic = findViewById(R.id.txtNameMusic);
         btnBack.setOnClickListener(this);
         imgPlayPauseMusic.setOnClickListener(this);
-//        imgDownloadAndDeleteMusic.setOnClickListener(this);
         btnPlayPauseMusic.setOnClickListener(this);
-//        btnDownLoadAndDeleteMusic.setOnClickListener(this);
         btnSetDefaultRingtone.setOnClickListener(this);
         btnSetDefaultNotification.setOnClickListener(this);
         btnSetDefaultAlarm.setOnClickListener(this);
@@ -215,7 +304,6 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
         mHandler = new Handler();
         txtTotalTime.setText("--");
         txtTimeDuration.setText(milliSecondsToTimer(0));
-//        resetDownloadView();
         txtNameMusic.setText(ringTone.getName());
     }
 
@@ -254,74 +342,6 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
     }
 
 
-//    private void showDialogConfirmDownLoad() {
-//        String message = "Are you sure you want to download this ringtone?";
-//        if (txtActionDownLoadOrDelete.getText().toString().equalsIgnoreCase(getResources().getString(R.string.delete))) {
-//            message = "Are you sure you want to delete this ringtone?";
-//        }
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("");
-//        builder.setMessage(message);
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                if (txtActionDownLoadOrDelete.getText().toString().equalsIgnoreCase(getResources().getString(R.string.delete))) {
-//                    //delete file
-//                    if (CommonUntil.checkIfAlreadyhavePermission(DetailActivityCategory.this, new String[]
-//                            {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
-//                        //show dialog confirm delete
-//                        showAlertDialogDeleteFile();
-//                    } else {
-//                        CommonUntil.requestPermission(DetailActivityCategory.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS}, DELETE_FILE_REQUEST);
-//                    }
-//                } else {
-//                    if (CommonUntil.checkIfAlreadyhavePermission(DetailActivityCategory.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                            Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
-//                        downloadFileOnly();
-//                    } else {
-//                        CommonUntil.requestPermission(DetailActivityCategory.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_SETTINGS}, DOWNLOAD_FILE_REQUEST);
-//                    }
-//                }
-//            }
-//        });
-//        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
-//
-//
-//    public void showAlertDialogDeleteFile() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("");
-//        builder.setMessage("Are you sure you want to delete this ringtone?");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                ringTone.setPath(null);
-//                CommonUntil.deleteFile(ringTone.getName(), ringTone.getId() + "");
-//                deleteRingtoneFromListShared();
-//                txtActionDownLoadOrDelete.setText(getResources().getString(R.string.download));
-//                imgDownloadAndDeleteMusic.setImageDrawable(DetailActivityCategory.this.getResources().getDrawable(R.drawable.ic_file_download_white_24dp));
-//            }
-//        });
-//        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
 
     public void showAlertDialogSetRingtone() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -547,7 +567,6 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
                 if (setupUriForContact(cNumber, file)) {
                     setRingtone(file);
                     diglog();
-//                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -570,7 +589,6 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
                 if (setupUriForContact(cNumber, file)) {
                     setRingtone(file);
                     diglog();
-//                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
@@ -594,7 +612,6 @@ public class DetailActivityCategory extends AppCompatActivity implements View.On
                 setRingtone(file);
                 if (setupUriForContact(cNumber, file)) {
                     diglog();
-//                    CommonUntil.createDialog(this, getString(R.string.change_success), getString(R.string.app_name)).show();
                     Settting1.showAdsIn(false, this, new Settting1.CallbackShow() {
                         @Override
                         public void Displayed() {
